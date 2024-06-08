@@ -53,8 +53,7 @@
                     </div>
                     <Divider />
                     <div class="flex items-center gap-3">
-                        <Avatar label="V" size="large" style="background-color: #ece9fc; color: #2a1261"
-                            shape="circle" />
+                        <Avatar image="/demo/images/main-avatar.png" size="large" shape="circle" />
                         <div>
                             <div class="text-base font-medium text-color leading-5">Robin Jonas</div>
                             <div class="text-sm text-muted-color mt-1">hi@robin.xyz</div>
@@ -64,18 +63,21 @@
             </div>
             <Overview v-if="selectedSampleAppsSidebarNav === 'Overview'" />
             <Chat v-if="selectedSampleAppsSidebarNav === 'Chat'" />
+            <Movies v-if="selectedSampleAppsSidebarNav === 'Movies'" />
+            <Cards v-if="selectedSampleAppsSidebarNav === 'Cards'" />
         </div>
     </section>
 </template>
 
 <script>
+import Avatar from '@/components/lib/avatar/Avatar.vue';
+import Divider from '@/components/lib/divider/Divider.vue';
 import EventBus from '@/layouts/AppEventBus';
 import { NodeService } from '@/service/NodeService';
-import Divider from '@/components/lib/divider/Divider.vue';
-import Avatar from '@/components/lib/avatar/Avatar.vue';
-import Overview from './app-samples/Overview.vue';
+import Cards from './app-samples/Cards.vue';
 import Chat from './app-samples/Chat.vue';
-
+import Movies from './app-samples/Movies.vue';
+import Overview from './app-samples/Overview.vue';
 export default {
     data() {
         return {
@@ -134,94 +136,7 @@ export default {
                 { icon: 'pi pi-cog', title: 'Settings' },
             ],
             selectedSampleAppsSidebarNav: 'Overview',
-            dates: [],
-            selectedTime: 'Monthly',
-            timeOptions: ['Monthly', 'Weekly', 'Yearly'],
-            sampleAppsTableDatas: [
-                {
-                    id: '#1254',
-                    name: {
-                        text: 'Amy Yelsner',
-                        label: 'AY',
-                        color: 'blue'
-                    },
-                    coin: 'btc',
-                    date: 'May 5th',
-                    process: {
-                        type: 'success',
-                        value: 'Buy'
-                    },
-                    amount: '3.005 BTC'
-                },
-                {
-                    id: '#2355',
-                    name: {
-                        text: 'Anna Fali',
-                        label: 'AF',
-                        color: '#ECFCCB'
-                    },
-                    coin: 'eth',
-                    date: 'Mar 17th',
-                    process: {
-                        type: 'success',
-                        value: 'Buy'
-                    },
-                    amount: '0.050 ETH'
-                },
-                {
-                    id: '#1235',
-                    name: {
-                        text: 'Stepen Shaw',
-                        label: 'SS',
-                        color: '#ECFCCB'
-                    },
-                    coin: 'btc',
-                    date: 'May 24th',
-                    process: {
-                        type: 'danger',
-                        value: 'Sell'
-                    },
-                    amount: '3.050 BTC'
-                },
-                {
-                    id: '#2355',
-                    name: {
-                        text: 'Anna Fali',
-                        label: 'AF',
-                        color: '#ECFCCB'
-                    },
-                    coin: 'eth',
-                    date: 'Mar 17th',
-                    process: {
-                        type: 'danger',
-                        value: 'Sell'
-                    },
-                    amount: '0.050 ETH'
-                },
-                {
-                    id: '#2355',
-                    name: {
-                        text: 'Anna Fali',
-                        label: 'AF',
-                        color: '#ECFCCB'
-                    },
-                    coin: 'eth',
-                    date: 'Mar 17th',
-                    process: {
-                        type: 'danger',
-                        value: 'Sell'
-                    },
-                    amount: '0.050 ETH'
-                }
-            ],
-            metersData: [
-                { label: 'BTC', color: '#F59E0B', value: 15, text: '27.215' },
-                { label: 'ETH', color: '#717179', value: 5, text: '4.367' },
-                { label: 'GBP', color: '#22C55E', value: 25, text: '£ 147.562,32' },
-                { label: 'EUR', color: '#84CC16', value: 11, text: '€ 137.457,25' },
-                { label: 'USD', color: '#14B8A6', value: 29, text: '$ 133.364,12' },
-                { label: 'XAU', color: '#EAB308', value: 29, text: '200 g' }
-            ],
+
         };
     },
     beforeUnmount() {
@@ -229,14 +144,6 @@ export default {
         EventBus.off('theme-palette-change', this.redrawListener);
     },
     mounted() {
-        this.chartData = this.setChartData();
-        this.chartOptions = this.setChartOptions();
-
-        this.redrawListener = () => {
-            this.chartData = this.setChartData();
-            this.chartOptions = this.setChartOptions();
-        };
-
         EventBus.on('dark-mode-toggle-complete', this.redrawListener);
         EventBus.on('theme-palette-change', this.redrawListener);
 
@@ -246,77 +153,6 @@ export default {
         setCategory(category) {
             this.category = category;
         },
-        setChartData() {
-            const documentStyle = getComputedStyle(document.documentElement);
-
-            return {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                datasets: [
-                    {
-                        type: 'bar',
-                        label: 'Personal Wallet',
-                        backgroundColor: 'color-mix(in srgb, ' + documentStyle.getPropertyValue('--p-primary-400') + ' 100%, #fff)',
-                        data: [40, 100, 150, 40, 160, 80, 210, 280, 170, 50, 120, 60]
-                    },
-                    {
-                        type: 'bar',
-                        label: 'Corporate Wallet',
-                        backgroundColor: 'color-mix(in srgb, ' + documentStyle.getPropertyValue('--p-primary-300') + ' 100%, transparent)',
-                        data: [21, 84, 24, 75, 37, 65, 34, 12, 48, 90, 76, 42]
-                    },
-                    {
-                        type: 'bar',
-                        label: 'Investment Wallet',
-                        backgroundColor: 'color-mix(in srgb, ' + documentStyle.getPropertyValue('--p-primary-200') + ' 100%, transparent)',
-                        data: [41, 52, 24, 74, 23, 21, 32, 12, 48, 90, 76, 42]
-                    }
-                ]
-            };
-        },
-        setChartOptions() {
-            const documentStyle = getComputedStyle(document.documentElement);
-            const textColor = documentStyle.getPropertyValue('--p-text-color');
-            const textColorSecondary = documentStyle.getPropertyValue('--p-text-color-secondary');
-            const surfaceBorder = documentStyle.getPropertyValue('--p-surface-border');
-
-            return {
-                maintainAspectRatio: false,
-                aspectRatio: 0.8,
-                plugins: {
-                    tooltips: {
-                        mode: 'index',
-                        intersect: false
-                    },
-                    legend: {
-                        labels: {
-                            color: textColor
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        stacked: true,
-                        ticks: {
-                            color: textColorSecondary
-                        },
-                        grid: {
-                            color: surfaceBorder
-                        }
-                    },
-                    y: {
-                        stacked: true,
-                        ticks: {
-                            color: textColorSecondary
-                        },
-                        grid: {
-                            color: surfaceBorder
-                        }
-                    }
-                }
-            };
-        },
-
-        /*Sample Apps Methods*/
         setSelectedSampleAppsSidebarNav(title) {
             this.selectedSampleAppsSidebarNav = title;
         },
@@ -325,7 +161,9 @@ export default {
         Divider,
         Avatar,
         Overview,
-        Chat
+        Chat,
+        Movies,
+        Cards
     },
     redrawListener: null
 };

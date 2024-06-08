@@ -10,12 +10,15 @@
                     <InputIcon class="pi pi-search"> </InputIcon>
                     <InputText placeholder="Search" />
                 </IconField>
-                <button
-                    class="bg-transparent text-color border-surface rounded-border hover:bg-emphasis cursor-pointer border px-2.5 transition-all">
-                    <OverlayBadge severity="danger">
+                <Button severity="secondary" outlined>
+                    <OverlayBadge severity="danger" :pt="{
+                        badge: {
+                            class: 'w-1 h-1'
+                        }
+                    }">
                         <i class="pi pi-bell" />
                     </OverlayBadge>
-                </button>
+                </Button>
             </div>
         </div>
         <div class="mt-4 flex flex-wrap gap-6 items-start justify-between">
@@ -31,22 +34,29 @@
             <div class="w-full border border-surface rounded-2xl py-5 px-7 flex flex-col justify-between">
                 <div class="flex items-center gap-6 mb-6">
                     <div class="flex-1 text-color font-semibold leading-6">Crypto Analytics</div>
-                    <Button icon="pi pi-ellipsis-h" severity="secondary" text aria-label="Bookmark" />
+                    <div class="flex items-center gap-5">
+                        <div v-for="(item, index) in chartData?.datasets" :key="index" class="flex items-center gap-2">
+                            <div class="p-1 rounded-full border border-surface flex items-center justify-center">
+                                <div class="w-2 h-2 rounded-full" :style="{ backgroundColor: item.backgroundColor }">
+                                </div>
+                            </div>
+                            <span class="font-medium text-color leading-6">{{ item.label }}</span>
+                        </div>
+                    </div>
                 </div>
-                <Chart type="bar" :data="chartData" :options="chartOptions" class="h-72" />
+                <Chart type="bar" :data="chartData" :options="chartOptions" class="h-80" />
             </div>
             <div class="flex gap-6">
                 <div class="flex-1 border border-surface rounded-2xl py-5 px-7">
                     <div class="flex items-center gap-6 mb-4">
                         <div class="flex-1 text-color font-semibold leading-6">Transactions</div>
-                        <Button icon="pi pi-ellipsis-h" severity="secondary" text aria-label="Bookmark" />
+                        <Button type="button" icon="pi pi-ellipsis-h" severity="secondary" text @click="toggle"
+                            aria-haspopup="true" aria-controls="overlay_menu" />
+                        <Menu ref="menu" id="overlay_menu" :model="menuItems" :popup="true" />
                     </div>
                     <DataTable :value="sampleAppsTableDatas" paginator :rows="5" dataKey="id"
-                        tableClass="overflow-x-auto dark:bg-surface-950" :rowsPerPageOptions="[5, 10, 20, 50]"
-                        paginatorTemplate="RowsPerPageDropdown PrevPageLink CurrentPageReport NextPageLink" :pt="{
-                            bodyrow: {
-                                class: 'bg-transparent'
-                            }
+                        tableClass="overflow-x-auto dark:bg-surface-950" :pt="{
+
                         }">
                         <Column header="Id" class="w-1/12">
                             <template #body="slotProps">
@@ -77,8 +87,8 @@
                         </Column>
                         <Column header="Process" class="w-1/6">
                             <template #body="slotProps">
-                                <Tag :severity="slotProps.data.process.type" :value="slotProps.data.process.value">
-                                </Tag>
+                                <Tag :severity="slotProps.data.process.type" :value="slotProps.data.process.value"
+                                    class="font-medium"></Tag>
                             </template>
                         </Column>
                         <Column header="Amount" class="w-1/6">
@@ -92,7 +102,9 @@
                     <div>
                         <div class="flex items-center gap-6 mb-6">
                             <div class="flex-1 text-color font-semibold leading-6">My Wallet</div>
-                            <Button icon="pi pi-ellipsis-h" severity="secondary" text aria-label="Bookmark" />
+                            <Button type="button" icon="pi pi-ellipsis-h" severity="secondary" text @click="toggle"
+                                aria-haspopup="true" aria-controls="overlay_menu" />
+                            <Menu ref="menu" id="overlay_menu" :model="menuItems" :popup="true" />
                         </div>
                         <MeterGroup :value="metersData" labelPosition="end">
                             <template #label="{ value }">
@@ -122,17 +134,17 @@
 
 <script>
 import Avatar from '@/components/lib/avatar/Avatar.vue';
-import IconField from '@/components/lib/iconfield/IconField.vue'
-import InputIcon from '@/components/lib/inputicon/InputIcon.vue'
-import InputText from '@/components/lib/inputtext/InputText.vue'
-import OverlayBadge from '@/components/lib/overlaybadge/OverlayBadge.vue'
-import MeterGroup from '@/components/lib/metergroup/MeterGroup.vue'
-import Column from '@/components/lib/column/Column.vue'
-import DataTable from '@/components/lib/datatable/DataTable.vue'
-import Chart from '@/components/lib/chart/Chart.vue'
-import Button from '@/components/lib/button/Button.vue'
-import Calendar from '@/components/lib/calendar/Calendar.vue'
-import SelectButton from '@/components/lib/selectbutton/SelectButton.vue'
+import Button from '@/components/lib/button/Button.vue';
+import Calendar from '@/components/lib/calendar/Calendar.vue';
+import Chart from '@/components/lib/chart/Chart.vue';
+import Column from '@/components/lib/column/Column.vue';
+import DataTable from '@/components/lib/datatable/DataTable.vue';
+import IconField from '@/components/lib/iconfield/IconField.vue';
+import InputIcon from '@/components/lib/inputicon/InputIcon.vue';
+import InputText from '@/components/lib/inputtext/InputText.vue';
+import MeterGroup from '@/components/lib/metergroup/MeterGroup.vue';
+import OverlayBadge from '@/components/lib/overlaybadge/OverlayBadge.vue';
+import SelectButton from '@/components/lib/selectbutton/SelectButton.vue';
 export default {
     name: 'Overview',
     redrawListener: null,
@@ -140,85 +152,31 @@ export default {
         return {
             chartData: {},
             chartOptions: {},
+            chartPlugins: [],
             dates: [],
             selectedTime: 'Monthly',
             timeOptions: ['Monthly', 'Weekly', 'Yearly'],
-            sampleAppsTableDatas: [
+            menuItems: [
                 {
-                    id: '#1254',
-                    name: {
-                        text: 'Amy Yelsner',
-                        label: 'AY',
-                        color: 'blue'
-                    },
-                    coin: 'btc',
-                    date: 'May 5th',
-                    process: {
-                        type: 'success',
-                        value: 'Buy'
-                    },
-                    amount: '3.005 BTC'
+                    label: 'Refresh',
+                    icon: 'pi pi-refresh'
                 },
                 {
-                    id: '#2355',
-                    name: {
-                        text: 'Anna Fali',
-                        label: 'AF',
-                        color: '#ECFCCB'
-                    },
-                    coin: 'eth',
-                    date: 'Mar 17th',
-                    process: {
-                        type: 'success',
-                        value: 'Buy'
-                    },
-                    amount: '0.050 ETH'
-                },
-                {
-                    id: '#1235',
-                    name: {
-                        text: 'Stepen Shaw',
-                        label: 'SS',
-                        color: '#ECFCCB'
-                    },
-                    coin: 'btc',
-                    date: 'May 24th',
-                    process: {
-                        type: 'danger',
-                        value: 'Sell'
-                    },
-                    amount: '3.050 BTC'
-                },
-                {
-                    id: '#2355',
-                    name: {
-                        text: 'Anna Fali',
-                        label: 'AF',
-                        color: '#ECFCCB'
-                    },
-                    coin: 'eth',
-                    date: 'Mar 17th',
-                    process: {
-                        type: 'danger',
-                        value: 'Sell'
-                    },
-                    amount: '0.050 ETH'
-                },
-                {
-                    id: '#2355',
-                    name: {
-                        text: 'Anna Fali',
-                        label: 'AF',
-                        color: '#ECFCCB'
-                    },
-                    coin: 'eth',
-                    date: 'Mar 17th',
-                    process: {
-                        type: 'danger',
-                        value: 'Sell'
-                    },
-                    amount: '0.050 ETH'
+                    label: 'Export',
+                    icon: 'pi pi-upload'
                 }
+            ],
+            sampleAppsTableDatas: [
+                { id: '#1254', name: { text: 'Amy Yelsner', label: 'AY', color: 'blue' }, coin: 'btc', date: 'May 5th', process: { type: 'success', value: 'Buy' }, amount: '3.005 BTC' },
+                { id: '#2355', name: { text: 'Anna Fali', label: 'AF', color: '#ECFCCB' }, coin: 'eth', date: 'Mar 17th', process: { type: 'success', value: 'Buy' }, amount: '0.050 ETH' },
+                { id: '#1235', name: { text: 'Stepen Shaw', label: 'SS', color: '#ECFCCB' }, coin: 'btc', date: 'May 24th', process: { type: 'danger', value: 'Sell' }, amount: '3.050 BTC' },
+                { id: '#2355', name: { text: 'Anna Fali', label: 'AF', color: '#ECFCCB' }, coin: 'eth', date: 'Mar 17th', process: { type: 'danger', value: 'Sell' }, amount: '0.050 ETH' },
+                { id: '#2355', name: { text: 'Anna Fali', label: 'AF', color: '#ECFCCB' }, coin: 'eth', date: 'Mar 17th', process: { type: 'danger', value: 'Sell' }, amount: '0.050 ETH' },
+                { id: '#1254', name: { text: 'Amy Yelsner', label: 'AY', color: 'blue' }, coin: 'btc', date: 'May 5th', process: { type: 'success', value: 'Buy' }, amount: '3.005 BTC' },
+                { id: '#2355', name: { text: 'Anna Fali', label: 'AF', color: '#ECFCCB' }, coin: 'eth', date: 'Mar 17th', process: { type: 'success', value: 'Buy' }, amount: '0.050 ETH' },
+                { id: '#1235', name: { text: 'Stepen Shaw', label: 'SS', color: '#ECFCCB' }, coin: 'btc', date: 'May 24th', process: { type: 'danger', value: 'Sell' }, amount: '3.050 BTC' },
+                { id: '#2355', name: { text: 'Anna Fali', label: 'AF', color: '#ECFCCB' }, coin: 'eth', date: 'Mar 17th', process: { type: 'danger', value: 'Sell' }, amount: '0.050 ETH' },
+                { id: '#2355', name: { text: 'Anna Fali', label: 'AF', color: '#ECFCCB' }, coin: 'eth', date: 'Mar 17th', process: { type: 'danger', value: 'Sell' }, amount: '0.050 ETH' }
             ],
             metersData: [
                 { label: 'BTC', color: '#F59E0B', value: 15, text: '27.215' },
@@ -233,31 +191,43 @@ export default {
     mounted() {
         this.chartData = this.setChartData();
         this.chartOptions = this.setChartOptions();
+        this.chartPlugings = this.setChartPlugins();
     },
     methods: {
+        toggle(event) {
+            this.$refs.menu.toggle(event);
+        },
         setChartData() {
             const documentStyle = getComputedStyle(document.documentElement);
 
             return {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 datasets: [
                     {
                         type: 'bar',
                         label: 'Personal Wallet',
                         backgroundColor: 'color-mix(in srgb, ' + documentStyle.getPropertyValue('--p-primary-400') + ' 100%, #fff)',
-                        data: [40, 100, 150, 40, 160, 80, 210, 280, 170, 50, 120, 60]
+                        data: [40, 100, 150, 40, 160, 80, 210, 280, 170, 50, 120, 60],
+                        barThickness: 32,
                     },
                     {
                         type: 'bar',
                         label: 'Corporate Wallet',
                         backgroundColor: 'color-mix(in srgb, ' + documentStyle.getPropertyValue('--p-primary-300') + ' 100%, transparent)',
-                        data: [21, 84, 24, 75, 37, 65, 34, 12, 48, 90, 76, 42]
+                        data: [21, 84, 24, 75, 37, 65, 34, 12, 48, 90, 76, 42],
+                        barThickness: 32,
                     },
                     {
                         type: 'bar',
                         label: 'Investment Wallet',
                         backgroundColor: 'color-mix(in srgb, ' + documentStyle.getPropertyValue('--p-primary-200') + ' 100%, transparent)',
-                        data: [41, 52, 24, 74, 23, 21, 32, 12, 48, 90, 76, 42]
+                        data: [41, 52, 24, 74, 23, 21, 32, 12, 48, 90, 76, 42],
+                        borderRadius: {
+                            topLeft: 8,
+                            topRight: 8
+                        },
+                        borderSkipped: true,
+                        barThickness: 32,
                     }
                 ]
             };
@@ -266,43 +236,185 @@ export default {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-color-secondary');
-            const surfaceBorder = documentStyle.getPropertyValue('--p-surface-border');
+            const surfaceBorder = documentStyle.getPropertyValue('--p-surface-100');
+            const textMutedColor = documentStyle.getPropertyValue('--p-surface-400');
+
+
+            const getOrCreateTooltip = (chart) => {
+                let tooltipEl = chart.canvas.parentNode.querySelector('div.chartjs-tooltip');
+
+                if (!tooltipEl) {
+                    tooltipEl = document.createElement('div');
+                    tooltipEl.classList.add('chartjs-tooltip');
+                    tooltipEl.style.backgroundColor = 'white'
+                    tooltipEl.style.boxShadow = '0px 25px 20px -5px rgba(0, 0, 0, 0.10), 0px 10px 8px -6px rgba(0, 0, 0, 0.10)'
+                    tooltipEl.style.borderRadius = '7px';
+                    tooltipEl.style.color = 'black';
+                    tooltipEl.style.opacity = 1;
+                    tooltipEl.style.width = '240px'
+                    tooltipEl.style.padding = '14.5px'
+                    tooltipEl.style.pointerEvents = 'none';
+                    tooltipEl.style.position = 'absolute';
+                    tooltipEl.style.transform = 'translate(-50%, 0)';
+                    tooltipEl.style.transition = 'all .2s ease';
+                    tooltipEl.style.display = 'flex'
+                    tooltipEl.style.flexDirection = 'column'
+                    tooltipEl.style.gap = '14px'
+                    chart.canvas.parentNode.appendChild(tooltipEl);
+                }
+
+                return tooltipEl;
+            };
 
             return {
                 maintainAspectRatio: false,
                 aspectRatio: 0.8,
                 plugins: {
-                    tooltips: {
-                        mode: 'index',
-                        intersect: false
+                    chartAreaBorder: {
+                        borderColor: 'red',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        borderDashOffset: 2,
+                    },
+                    tooltip: {
+                        enabled: false,
+                        padding: 10,
+                        position: 'nearest',
+                        external: function (context) {
+                            // Tooltip Element
+                            const { chart, tooltip } = context;
+                            const tooltipEl = getOrCreateTooltip(chart);
+
+                            // Hide if no tooltip
+                            if (tooltip.opacity === 0) {
+                                tooltipEl.style.opacity = 0;
+
+                                return;
+                            }
+
+                            // Set Text
+                            if (tooltip.body) {
+                                const bodyLines = tooltip.body.map(b => {
+                                    const strArr = b.lines[0].split(':');
+                                    const data = {
+                                        text: strArr[0].trim(),
+                                        value: strArr[1].trim()
+                                    }
+
+                                    return data;
+                                });
+
+                                // Clear old content
+                                tooltipEl.innerHTML = '';
+                                bodyLines.forEach((body, i) => {
+                                    const colors = tooltip.labelColors[i];
+
+                                    const bodyDiv = document.createElement('div');
+
+                                    bodyDiv.style.display = 'flex';
+                                    bodyDiv.style.alignItems = 'center';
+                                    bodyDiv.style.justifyContent = 'space-between';
+
+                                    const bodyDivLeft = document.createElement('div');
+
+                                    bodyDivLeft.style.display = 'flex';
+                                    bodyDivLeft.style.alignItems = 'center';
+                                    bodyDivLeft.style.gap = '4px';
+
+                                    const innerSpan = document.createElement('span');
+
+                                    innerSpan.style.background = colors.backgroundColor;
+                                    innerSpan.style.borderColor = colors.borderColor;
+                                    innerSpan.style.height = '7px';
+                                    innerSpan.style.width = '7px';
+                                    innerSpan.style.borderRadius = '99px'
+                                    innerSpan.style.display = 'inline-block';
+
+                                    const span = document.createElement('span');
+
+                                    span.style.display = 'inline-flex'
+                                    span.style.alignItems = 'center'
+                                    span.style.justifyContent = 'center'
+                                    span.style.marginRight = '3px';
+                                    span.style.padding = '3px'
+                                    span.style.border = '1px solid rgb(0,0,0,0.15)'
+                                    span.style.borderRadius = '99px'
+                                    span.appendChild(innerSpan)
+
+                                    const text = document.createElement('span')
+
+                                    text.appendChild(document.createTextNode(body.text))
+                                    text.style.fontWeight = '500'
+                                    text.style.lineHeight = '21px'
+
+                                    bodyDivLeft.appendChild(span)
+                                    bodyDivLeft.appendChild(text)
+
+                                    const bodyDivRight = document.createElement('div');
+
+                                    bodyDivRight.appendChild(document.createTextNode(body.value))
+                                    bodyDivRight.style.fontWeight = '500'
+                                    bodyDivRight.style.lineHeight = '21px'
+
+                                    bodyDiv.appendChild(bodyDivLeft);
+                                    bodyDiv.appendChild(bodyDivRight);
+                                    tooltipEl.appendChild(bodyDiv);
+                                });
+
+
+                            }
+
+                            const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
+
+                            // Display, position, and set styles for font
+                            tooltipEl.style.opacity = 1;
+                            tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+                            tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+                            tooltipEl.style.font = tooltip.options.bodyFont.string;
+                            tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
+                        }
                     },
                     legend: {
-                        labels: {
-                            color: textColor
-                        }
+                        display: false,
                     }
                 },
                 scales: {
                     x: {
                         stacked: true,
                         ticks: {
-                            color: textColorSecondary
+                            color: textMutedColor,
+                            font: {
+                                weight: 'lighter'
+                            }
                         },
                         grid: {
-                            color: surfaceBorder
+                            color: 'transparent',
+                            borderColor: 'transparent'
                         }
                     },
                     y: {
+                        border: {
+                            display: false,
+                        },
                         stacked: true,
                         ticks: {
-                            color: textColorSecondary
+                            color: textMutedColor,
+                            font: {
+                                weight: 'lighter'
+                            }
                         },
                         grid: {
-                            color: surfaceBorder
+                            color: surfaceBorder,
+                            borderColor: 'transparent'
                         }
                     }
                 }
             };
+        },
+        setChartPlugins() {
+            return [
+                'chartAreaBorder'
+            ]
         },
         /*Sample Apps Methods*/
         setSelectedSampleAppsSidebarNav(title) {
