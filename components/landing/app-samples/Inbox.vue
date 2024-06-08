@@ -35,7 +35,7 @@
         </div>
         <div class="flex-1 h-full  overflow-hidden flex border border-surface rounded-2xl ">
             <DataTable v-model:selection="selectedRows" scrollable selectionMode="multiple" :value="tableData"
-                :rows="10" :pt="{
+                class="[&>td]:border-0" :rows="10" :pt="{
                     root: {
                         class: 'w-full flex-1 overflow-x-auto'
                     },
@@ -44,7 +44,7 @@
                     },
                     header: {
                         class: 'sticky top-0 z-10'
-                    }
+                    },
                 }">
                 <template #header>
                     <div class="flex items-center justify-between gap-2">
@@ -72,17 +72,18 @@
                 </template>
                 <template #empty>Inbox is empty.</template>
                 <Column selectionMode="multiple" headerStyle="width: 1rem" style="width: 1rem"></Column>
-                <Column field="bookmarked" header="" headerStyle="width: 1rem" style="width: 1rem">
+                <Column field="bookmarked" header="" headerStyle="width: 1rem" style="width: 1rem; padding:0.5rem">
                     <template #body="{ data }">
-                        <Button @click="data.bookmarked = !data.bookmarked"
-                            :icon="data.bookmarked ? 'pi pi-bookmark-fill' : 'pi pi-bookmark'" text rounded />
+                        <div @click="data.bookmarked = !data.bookmarked" @click.stop>
+                            <i :class="data.bookmarked ? 'pi pi-bookmark-fill' : 'pi pi-bookmark'"></i>
+                        </div>
                     </template>
                 </Column>
                 <Column field="name" header="">
                     <template #body="{ data }">
                         <div class="flex items-center">
                             <Avatar v-bind="data.image ? { image: data.image } : { label: data.capName }" :class="{
-                                'bg-violet-100 text-violet-950': !data.image
+                                'bg-violet-100 text-violet-950 text-xsw font-medium': !data.image
                             }" class="mr-4 rounded-md overflow-hidden" />
                             <div class="leading-6 text-color font-medium">{{ data.name }}</div>
                         </div>
@@ -113,13 +114,10 @@
 
 <script>
 import Avatar from '@/components/lib/avatar/Avatar.vue';
-import Badge from '@/components/lib/badge/Badge.vue';
 import Button from '@/components/lib/button/Button.vue';
 import IconField from '@/components/lib/iconfield/IconField.vue';
 import InputIcon from '@/components/lib/inputicon/InputIcon.vue';
-import InputSwitch from '@/components/lib/inputswitch/InputSwitch.vue';
 import InputText from '@/components/lib/inputtext/InputText.vue';
-import SelectButton from '@/components/lib/selectbutton/SelectButton.vue';
 
 export default {
     name: 'Inbox',
@@ -156,17 +154,17 @@ export default {
                 { id: 2, bookmarked: false, image: '/demo/images/avatar2.png', active: false, name: 'Dianne Russell', type: "Update", time: "11:24 AM", title: "Weekly Project Update", message: "Hi team, attached is the weekly project update. Kindly review the progress and come prepared for our discussion in the upcoming meeting on [Date and Time]." },
                 { id: 3, bookmarked: true, image: '/demo/images/avatar3.png', active: false, name: 'Amy Elsner', type: "Security", time: "9:24 AM", title: "Urgent: Security Alert - Account Compromise", message: "Dear user, we detected unauthorized access to your account. Take immediate action to secure your account. Follow the provided link to reset your password. Thank you." },
                 { id: 4, bookmarked: false, image: '/demo/images/avatar4.png', active: false, name: 'Jacob Jones', type: "Marketing", time: "Jan 21", title: "Exclusive Offer Inside - Limited Time Only", message: "Greetings, check out our exclusive offer! Don't miss this limited-time deal. Details enclosed in the attached flyer. Act fast; the offer expires on [Date]." },
-                { id: 5, bookmarked: false, image: '', active: false, name: 'Cameron Watson', nameCap: 'CW', type: "HR", time: "Jan 15", title: "Employee Appreciation Event - Save the Date", message: "Hello team, mark your calendars for our upcoming Employee Appreciation Event on [Date]. Stay tuned for more details and get ready for a day of celebration!" },
-                { id: 6, bookmarked: true, image: '', active: false, name: 'Wade Warren', nameCap: 'WW', type: "Invoice", time: "Jan 12", title: "Your Recent Purchase - Order Confirmation", message: "Hi Wade Warren, secure your spot at the XYZ Conference 2024 with early bird registration. Enjoy discounted rates until [Date]." },
+                { id: 5, bookmarked: false, image: '', active: false, name: 'Cameron Watson', capName: 'CW', type: "HR", time: "Jan 15", title: "Employee Appreciation Event - Save the Date", message: "Hello team, mark your calendars for our upcoming Employee Appreciation Event on [Date]. Stay tuned for more details and get ready for a day of celebration!" },
+                { id: 6, bookmarked: true, image: '', active: false, name: 'Wade Warren', capName: 'WW', type: "Invoice", time: "Jan 12", title: "Your Recent Purchase - Order Confirmation", message: "Hi Wade Warren, secure your spot at the XYZ Conference 2024 with early bird registration. Enjoy discounted rates until [Date]." },
                 { id: 7, bookmarked: false, image: '/demo/images/avatar7.png', active: false, name: 'Guy Hawkins', type: "Events", time: "Jan 11", title: "Early Bird Registration Open - XYZ Conference 2024", message: " Attention users, we have scheduled system maintenance on Jan 17. Expect minimal service disruption during this period. Thank you for your understanding." },
                 { id: 8, bookmarked: false, image: '/demo/images/avatar8.png', active: false, name: 'Annette Black', type: "", time: "Jan 8", title: "Upcoming System Maintenance Notice", message: "Dear valued customer, as a token of appreciation, we're offering exclusive discounts for VIP customers. Explore the savings in the attached catalog. Expires [Date]." },
                 { id: 9, bookmarked: true, image: '/demo/images/avatar1.png', active: false, name: 'Darrell Steward', type: "Discount", time: "Jan 4", title: "Special Discounts for VIP Customers", message: "Hello Darrell Steward, stay updated with our latest news and highlights in the January edition of our newsletter. Enjoy the read!" },
-                { id: 10, bookmarked: true, image: '', active: false, name: 'Jerome Bell', nameCap: 'JB', type: "Newsletter", time: "Jan 2", title: "Monthly Newsletter - January Edition", message: "Dear user, we've updated our Terms of Service. Please review the changes to ensure compliance. Your continued use of our services implies acceptance. Thank you." },
+                { id: 10, bookmarked: true, image: '', active: false, name: 'Jerome Bell', capName: 'JB', type: "Newsletter", time: "Jan 2", title: "Monthly Newsletter - January Edition", message: "Dear user, we've updated our Terms of Service. Please review the changes to ensure compliance. Your continued use of our services implies acceptance. Thank you." },
                 { id: 11, bookmarked: false, image: '/demo/images/avatar1.png', active: false, name: 'Onyama Limba', type: "", time: "Jan 2", title: "Exclusive Travel Packages for You", message: "Greetings traveler, explore our exclusive travel packages tailored just for you. Plan your next adventure with XYZ Travel. Offers valid until [Date]." },
-                { id: 12, bookmarked: false, image: '', active: false, name: 'Robert Fox', nameCap: 'RF', type: "Invitation", time: "12.12.2023", title: "Invitation to Amsterdam", message: "Hello Robert Fox, you're invited to our upcoming webinar on Amsterdam. Join us on [Date and Time] for an insightful session. Reserve your spot now!" },
-                { id: 13, bookmarked: true, image: '', active: false, name: 'Courtney Henry', nameCap: 'CH', type: "", time: "12.09.2023", title: "New Arrivals - Check Out the Latest Books", message: "Book enthusiasts, discover our latest arrivals! Explore the attached catalog and dive into the world of new releases. Available for purchase starting [Date]." },
+                { id: 12, bookmarked: false, image: '', active: false, name: 'Robert Fox', capName: 'RF', type: "Invitation", time: "12.12.2023", title: "Invitation to Amsterdam", message: "Hello Robert Fox, you're invited to our upcoming webinar on Amsterdam. Join us on [Date and Time] for an insightful session. Reserve your spot now!" },
+                { id: 13, bookmarked: true, image: '', active: false, name: 'Courtney Henry', capName: 'CH', type: "", time: "12.09.2023", title: "New Arrivals - Check Out the Latest Books", message: "Book enthusiasts, discover our latest arrivals! Explore the attached catalog and dive into the world of new releases. Available for purchase starting [Date]." },
                 { id: 14, bookmarked: true, image: '/demo/images/avatar1.png', active: false, name: 'Arlene McCoy', type: "12.04.2023", time: "12.04.2023", title: "New Product Demo", message: "Exclusive demo of our latest product on Thursday." },
-                { id: 15, bookmarked: false, image: '', active: false, name: 'Jerome Bell', nameCap: 'JB', type: "Newsletter", time: "10.01.2023", title: "Monthly Newsletter - January Edition", message: "Dear user, we've updated our Terms of Service. Please review the changes to ensure compliance. Your continued use of our services implies acceptance. Thank you." },
+                { id: 15, bookmarked: false, image: '', active: false, name: 'Jerome Bell', capName: 'JB', type: "Newsletter", time: "10.01.2023", title: "Monthly Newsletter - January Edition", message: "Dear user, we've updated our Terms of Service. Please review the changes to ensure compliance. Your continued use of our services implies acceptance. Thank you." },
             ],
             selectedRows: []
         };
@@ -180,9 +178,6 @@ export default {
         InputIcon,
         InputText,
         Button,
-        SelectButton,
-        Badge,
-        InputSwitch
     },
 };
 

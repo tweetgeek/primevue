@@ -43,7 +43,6 @@
                 <div>
                     <div class="mt-10 flex flex-col gap-2">
                         <div v-for="(navItem, index) in sampleAppsSidebarNavsMore" :key="index"
-                            @click="setSelectedSampleAppsSidebarNav(navItem.title)"
                             class="w-full px-4 py-1 flex items-center gap-1 cursor-pointer text-base rounded-lg transition-all select-none"
                             :class="[{ 'text-muted-color hover:bg-emphasis bg-transparent': selectedSampleAppsSidebarNav !== navItem.title, 'text-primary-contrast bg-primary hover:bg-primary-emphasis': selectedSampleAppsSidebarNav === navItem.title }]">
                             <i :class="navItem.icon"></i>
@@ -66,6 +65,7 @@
             <Movies v-if="selectedSampleAppsSidebarNav === 'Movies'" />
             <Cards v-if="selectedSampleAppsSidebarNav === 'Cards'" />
             <Inbox v-if="selectedSampleAppsSidebarNav === 'Inbox'" />
+            <Customers v-if="selectedSampleAppsSidebarNav === 'Customers'" />
         </div>
     </section>
 </template>
@@ -77,10 +77,10 @@ import EventBus from '@/layouts/AppEventBus';
 import { NodeService } from '@/service/NodeService';
 import Cards from './app-samples/Cards.vue';
 import Chat from './app-samples/Chat.vue';
+import Customers from './app-samples/Customers.vue';
 import Inbox from './app-samples/Inbox.vue';
 import Movies from './app-samples/Movies.vue';
 import Overview from './app-samples/Overview.vue';
-
 export default {
     data() {
         return {
@@ -167,7 +167,8 @@ export default {
         Chat,
         Movies,
         Cards,
-        Inbox
+        Inbox,
+        Customers
     },
     redrawListener: null
 };
