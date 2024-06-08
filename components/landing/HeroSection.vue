@@ -20,7 +20,7 @@
             </div>
         </div>
         <div
-            class="bg-surface-0 border border-black/10 dark:border-white/20 dark:bg-surface-950 w-full h-[80vh] mt-16 rounded-3xl p-6 flex items-start gap-6 overflow-hidden">
+            class="bg-surface-0 border border-black/10 dark:border-white/20 dark:bg-surface-950 w-full h-[85vh] mt-16 rounded-3xl p-6 flex items-start gap-6 overflow-hidden">
             <div class="w-72 rounded-2xl p-5 bg-surface-50 dark:bg-surface-900 h-full flex flex-col justify-between">
                 <div>
                     <div class="flex items-center gap-3">
@@ -65,6 +65,7 @@
             <Chat v-if="selectedSampleAppsSidebarNav === 'Chat'" />
             <Movies v-if="selectedSampleAppsSidebarNav === 'Movies'" />
             <Cards v-if="selectedSampleAppsSidebarNav === 'Cards'" />
+            <Inbox v-if="selectedSampleAppsSidebarNav === 'Inbox'" />
         </div>
     </section>
 </template>
@@ -76,8 +77,10 @@ import EventBus from '@/layouts/AppEventBus';
 import { NodeService } from '@/service/NodeService';
 import Cards from './app-samples/Cards.vue';
 import Chat from './app-samples/Chat.vue';
+import Inbox from './app-samples/Inbox.vue';
 import Movies from './app-samples/Movies.vue';
 import Overview from './app-samples/Overview.vue';
+
 export default {
     data() {
         return {
@@ -163,7 +166,8 @@ export default {
         Overview,
         Chat,
         Movies,
-        Cards
+        Cards,
+        Inbox
     },
     redrawListener: null
 };

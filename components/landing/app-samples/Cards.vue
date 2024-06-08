@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-xl p-6">
+    <div class="flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-6">
         <div class="text-color text-2xl font-medium leading-8">Cards</div>
         <div class="mt-1 text-muted-color leading-6">You can make cards using Aura like below 👇</div>
         <div class="mt-6 flex items-start gap-6">
@@ -184,7 +184,7 @@
                     </div>
                     <div class="flex items-center gap-2">
                         <label v-for="permission in permissions" :key="permission.key" :for="permission.key"
-                            class="cursor-pointer flex-1 flex items-center gap-1 p-2 rounded-border border border-surface select-none">
+                            class="cursor-pointer flex-1 flex items-center gap-1 p-2 rounded-border border border-surface hover:bg-emphasis transition-all select-none">
                             <i class="text-color" :class="permission.icon"></i>
                             <div class="flex-1 text-sm leading-5 text-color">{{ permission.name }}</div>
                             <RadioButton v-model="selectedPermission" :inputId="permission.key" variant="filled"

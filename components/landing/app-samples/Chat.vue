@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden flex border border-surface rounded-xl">
+    <div class="flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden flex border border-surface rounded-2xl">
         <div class="flex-[0.25] min-w-40 overflow-auto flex flex-col gap-6">
             <div class="flex flex-col gap-6 pt-3 pb-2 -mb-2 px-5 sticky top-0 bg-surface-0 dark:bg-surface-950 z-10">
                 <div class="flex items-center justify-between gap-6 text-color">

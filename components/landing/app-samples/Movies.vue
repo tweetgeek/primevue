@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex-1 flex flex-col gap-6 p-6 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-xl">
+        class="flex-1 flex flex-col gap-6 p-6 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl">
         <div class="flex flex-wrap gap-4 items-center justify-between">
             <SelectButton v-model="value" :options="options" aria-labelledby="basic" />
             <div class="flex gap-2">
