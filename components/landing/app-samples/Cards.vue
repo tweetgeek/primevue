@@ -77,7 +77,7 @@
                         </div>
                         <Button icon="pi pi-bell" severity="contrast" text />
                     </div>
-                    <div class="mt-4 flex flex-col gap-2">
+                    <div class="mt-4 flex flex-col gap-1">
                         <button
                             class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
                             <i class="pi pi-envelope text-lg w-7 h-7 flex items-center justify-center"></i>
@@ -113,7 +113,7 @@
                     </button>
                 </div>
                 <div class="border border-surface rounded-3xl">
-                    <div class="p-6 flex flex-col gap-6">
+                    <div class="pt-6 px-6 flex flex-col gap-6">
                         <div class="flex items-start gap-2 justify-between">
                             <div>
                                 <div class="text-2xl text-color font-medium">Data Analyst </div>
@@ -145,11 +145,149 @@
                             <Tag value="Big Data" rounded class="font-normal"></Tag>
                         </div>
                     </div>
+                    <div class="p-1 mt-4">
+                        <button
+                            class="p-4 rounded-3xl w-full bg-emphasis transition-all text-color hover:text-color-emphasis flex items-center gap-2 justify-between cursor-pointer">
+                            <div class="flex items-center [&>*]:-mr-2">
+                                <Avatar image="/demo/images/avatar1.png" size="small" shape="circle" />
+                                <Avatar image="/demo/images/avatar2.png" size="small" shape="circle" />
+                                <Avatar image="/demo/images/avatar3.png" size="small" shape="circle" />
+                                <Avatar image="/demo/images/avatar4.png" size="small" shape="circle" />
+                                <Avatar image="/demo/images/avatar5.png" size="small" shape="circle" />
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="font-medium leading-6">12 Applicants</div>
+                                <i class="pi pi-arrow-right"></i>
+                            </div>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="flex-1 flex flex-col gap-6">
-                <div class="border border-surface rounded-3xl p-6">
+                <div class="border border-surface rounded-3xl p-6 flex flex-col gap-6">
+                    <div class="flex items-center gap-2 text-color">
+                        <i class="pi pi-cloud-upload text-xl"></i>
+                        <div class="flex-1 font-medium leading-6">Upload Files</div>
+                        <Button icon="pi pi-times" text rounded />
+                    </div>
+                    <div>
+                        <label for="document-name" class="text-color font-medium leading-6">Document Name </label>
+                        <InputText id="document-name" v-model="documentName" class="mt-2 w-full" />
+                    </div>
+                    <div>
+                        <label class="text-color font-medium leading-6">Upload Files</label>
 
+                    </div>
+                    <div>
+                        <label class="text-color font-medium leading-6">Tag (Optional)</label>
+                        <Chips v-model="filesTag" class="w-full mt-2" />
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <label v-for="permission in permissions" :key="permission.key" :for="permission.key"
+                            class="cursor-pointer flex-1 flex items-center gap-1 p-2 rounded-border border border-surface select-none">
+                            <i class="text-color" :class="permission.icon"></i>
+                            <div class="flex-1 text-sm leading-5 text-color">{{ permission.name }}</div>
+                            <RadioButton v-model="selectedPermission" :inputId="permission.key" variant="filled"
+                                name="dynamic" :value="permission.name" />
+                        </label>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Button label="Cancel" outlined class="flex-1" />
+                        <Button label="Upload" class="flex-1" />
+                    </div>
+                </div>
+                <div class="border border-surface rounded-3xl p-6">
+                    <div class="flex items-start justify-between gap-1">
+                        <div class="flex items-center gap-x-2 gap-y-1 flex-wrap flex-1">
+                            <Avatar image="/demo/images/avatar1.png" size="small" shape="circle" />
+                            <Avatar image="/demo/images/avatar2.png" size="small" shape="circle" />
+                            <Avatar image="/demo/images/avatar3.png" size="small" shape="circle" />
+                            <Avatar image="/demo/images/avatar4.png" size="small" shape="circle" />
+                            <div class="w-full"></div>
+                            <Avatar image="/demo/images/avatar5.png" size="small" shape="circle" />
+                            <Avatar image="/demo/images/avatar6.png" size="small" shape="circle" />
+                            <Avatar image="/demo/images/avatar7.png" size="small" shape="circle" />
+                            <Avatar image="/demo/images/avatar8.png" size="small" shape="circle" />
+                            <Avatar image="/demo/images/avatar4.png" size="small" shape="circle" />
+                            <Avatar image="/demo/images/avatar5.png" size="small" shape="circle" />
+                        </div>
+                        <Button icon="pi pi-arrow-up-right" rounded text />
+                    </div>
+                    <div class="text-2xl font-medium text-color mt-6 leading-8">That's your avatar</div>
+                    <div class="leading-6 text-muted-color mt-2">Easy to use! place it, watch it.</div>
+                </div>
+                <div class="border border-surface rounded-3xl p-6 flex flex-col gap-6">
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="text-2xl font-medium leading-8 flex-1">Add Member</div>
+                        <Button icon="pi pi-times" rounded text severity="secondary" />
+                    </div>
+                    <div>
+                        <div class="text-muted-color leading-6">Email</div>
+                        <div class="flex items-start gap-3 mt-2">
+                            <Chips v-model="emailChips" class="flex-1" />
+                            <Button label="Invite" />
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-medium leading-6 text-muted-color">Members</div>
+                        <div class="mt-4 flex flex-col gap-4">
+                            <div class="flex items-center gap-2 justify-between">
+                                <Avatar image="/demo/images/avatar8.png" class="w-9 h-9" shape="circle" />
+                                <div class="flex-1">
+                                    <div class="text-sm font-medium text-color leading-5">Brook Simmons</div>
+                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">
+                                        brook.sim42@primevue.org</div>
+                                </div>
+                                <Dropdown v-model="memberSelectedTypes[0]" :options="memberTypes" optionLabel="name"
+                                    placeholder="Select a role" class="w-16" :pt="{
+                                        root: { class: 'border-0 shadow-none' },
+                                        label: { class: 'p-0 text-muted-color text-sm' },
+                                        dropdown: { class: 'p-0 w-auto' },
+                                        dropdownicon: { class: 'w-3 h-3' },
+                                        option: { class: 'text-sm px-2 py-1' }
+                                    }" />
+                            </div>
+                            <div class="flex items-center gap-2 justify-between">
+                                <Avatar image="/demo/images/avatar5.png" class="w-9 h-9" shape="circle" />
+                                <div class="flex-1">
+                                    <div class="text-sm font-medium text-color leading-5">Dianne Russell</div>
+                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">
+                                        di.russ23@primevue.org</div>
+                                </div>
+                                <Dropdown v-model="memberSelectedTypes[1]" :options="memberTypes" optionLabel="name"
+                                    placeholder="Select a role" class="w-16" :pt="{
+                                        root: { class: 'border-0 shadow-none' },
+                                        label: { class: 'p-0 text-muted-color text-sm' },
+                                        dropdown: { class: 'p-0 w-auto' },
+                                        dropdownicon: { class: 'w-3 h-3' },
+                                        option: { class: 'text-sm px-2 py-1' }
+                                    }" />
+                            </div>
+                            <div class="flex items-center gap-2 justify-between">
+                                <Avatar image="/demo/images/avatar7.png" class="w-9 h-9" shape="circle" />
+                                <div class="flex-1">
+                                    <div class="text-sm font-medium text-color leading-5">Jacob Jones</div>
+                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">
+                                        jac.jon87@primevue.org</div>
+                                </div>
+                                <Dropdown v-model="memberSelectedTypes[2]" :options="memberTypes" optionLabel="name"
+                                    placeholder="Select a role" class="w-16" :pt="{
+                                        root: { class: 'border-0 shadow-none' },
+                                        label: { class: 'p-0 text-muted-color text-sm' },
+                                        dropdown: { class: 'p-0 w-auto' },
+                                        dropdownicon: { class: 'w-3 h-3' },
+                                        option: { class: 'text-sm px-2 py-1' }
+                                    }" />
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-medium leading-6 text-muted-color">Copy Link</div>
+                        <div class="flex items-center gap-3 mt-2">
+                            <InputText v-model="copiedText" type="text" class="flex-1" readOnly />
+                            <Button label="Copy" severity='secondary' />
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="flex-1 flex flex-col gap-6">
@@ -290,6 +428,21 @@ export default {
             userSelectButtonOptions: ['Joined', 'Hosted'],
             selectedUserSelectButtonOption: 'Joined',
             darkMode: false,
+            emailChips: [],
+            memberSelectedTypes: ['O', 'E', 'V'],
+            memberTypes: [
+                { name: 'Owner', code: 'O' },
+                { name: 'Editor', code: 'E' },
+                { name: 'Viewer', code: 'V' },
+            ],
+            copiedText: 'https://www.example.com/shared-files/user123/document-collection/file12345',
+            documentName: 'Aura Theme',
+            filesTag: ['ui', 'redesign', 'dashboard'],
+            selectedPermission: 'Everyone',
+            permissions: [
+                { name: 'Everyone', icon: 'pi pi-globe', key: 'E' },
+                { name: 'Admins only', icon: 'pi pi-users', key: 'A' },
+            ]
         };
     },
     methods: {
