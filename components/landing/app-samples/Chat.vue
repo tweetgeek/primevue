@@ -95,7 +95,7 @@
                             {{ message.message }}</p>
                         <div v-if="message.attachment"
                             :class="message.type === 'received' ? 'bg-surface-200 dark:bg-surface-700' : 'bg-primary-emphasis'"
-                            class="mt-2 w-full  rounded-lg mb-0.5">
+                            class="mt-2 w-full  rounded-lg mb-0.5 hover:opacity-75 transition-all">
                             <img class="w-full h-auto block cursor-pointer" :src="message.attachment"
                                 alt="Message Image" />
                         </div>

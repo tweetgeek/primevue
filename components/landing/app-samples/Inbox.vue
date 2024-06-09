@@ -35,7 +35,7 @@
         </div>
         <div class="flex-1 h-full  overflow-hidden flex border border-surface rounded-2xl ">
             <DataTable v-model:selection="selectedRows" scrollable selectionMode="multiple" :value="tableData"
-                class="[&>td]:border-0" :rows="10" :pt="{
+                :rows="10" :pt="{
                     root: {
                         class: 'w-full flex-1 overflow-x-auto'
                     },
@@ -83,7 +83,7 @@
                     <template #body="{ data }">
                         <div class="flex items-center">
                             <Avatar v-bind="data.image ? { image: data.image } : { label: data.capName }" :class="{
-                                'bg-violet-100 text-violet-950 text-xsw font-medium': !data.image
+                                'bg-violet-100 text-violet-950 text-xs font-medium': !data.image
                             }" class="mr-4 rounded-md overflow-hidden" />
                             <div class="leading-6 text-color font-medium">{{ data.name }}</div>
                         </div>
