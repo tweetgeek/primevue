@@ -448,8 +448,8 @@
                         <div class="flex items-center gap-4 flex-wrap">
                             <div v-for="(data, index) of priceRangePopularSpecs" :key="index"
                                 class="flex align-items-center">
-                                <Checkbox v-model="priceRangePopularSpecsChecked[index]" :inputId="data.value"
-                                    name="price" :value="data.value" />
+                                <Checkbox v-model="priceRangePopularSpecsChecked" :inputId="data.value"
+                                    :name="data.value" :value="data.value" />
                                 <label :for="data.value" class="ml-2">{{ data.value }}</label>
                             </div>
                         </div>
@@ -498,7 +498,7 @@ export default {
                 { value: 'Central location', checked: false },
                 { value: 'Sea view', checked: true },
             ],
-            priceRangePopularSpecsChecked: [true, false, true, false, true, false, false, false, false, true],
+            priceRangePopularSpecsChecked: ['Furnished', 'Detached', 'Balcony', 'Sea view'],
             userSelectButtonOptions: ['Joined', 'Hosted'],
             selectedUserSelectButtonOption: 'Joined',
             darkMode: false,

@@ -10,7 +10,7 @@
                     <div v-for="(navData, i) of inboxNavs" :key="i" class="flex flex-col gap-2">
                         <div class="text-sm font-medium leading-5 text-surface-400 dark:text-surface-500">{{
                             navData.title
-                        }}</div>
+                            }}</div>
                         <button v-for="(nav, j) of navData.navs" :key="j" @click="activeInboxNav = nav.name"
                             :class="activeInboxNav === nav.name ? 'text-color bg-emphasis' : 'text-muted-color bg-transparent'"
                             class="px-4 py-2 rounded-lg  flex items-center gap-2 cursor-pointer hover:bg-emphasis transition-all">
@@ -48,6 +48,11 @@
                     header: {
                         class: 'sticky top-0 z-10'
                     },
+                    column: {
+                        bodyCell: {
+                            class: '!border-transparent'
+                        }
+                    }
                 }">
                 <template #header>
                     <div class="flex items-center justify-between gap-2">
