@@ -8,7 +8,7 @@
                     <div class="flex items-center gap-3">
                         <OverlayBadge severity="danger" class="w-fit">
                             <Avatar image="/demo/images/main-avatar.png" size="large"
-                                class="rounded-lg overflow-hidden" />
+                                class="rounded-lg overflow-hidden flex" />
                         </OverlayBadge>
                         <div>
                             <div class="font-medium text-color leading-6">Jacob Jones</div>
@@ -31,9 +31,9 @@
                         <div class="text-sm leading-5 text-color font-medium">Mutual Friends</div>
                         <AvatarGroup>
                             <Avatar image="/demo/images/avatar1.png" size="small" class="rounded-lg overflow-hidden" />
-                            <Avatar image="/demo/images/avatar2.png" size="small" class="rounded-lg overflow-hidden" />
-                            <Avatar image="/demo/images/avatar3.png" size="small" class="rounded-lg overflow-hidden" />
-                            <Avatar image="/demo/images/avatar4.png" size="small" class="rounded-lg overflow-hidden" />
+                            <Avatar image="/demo/images/avatar9.jpg" size="small" class="rounded-lg overflow-hidden" />
+                            <Avatar image="/demo/images/avatar11.jpg" size="small" class="rounded-lg overflow-hidden" />
+                            <Avatar image="/demo/images/avatar13.jpg" size="small" class="rounded-lg overflow-hidden" />
                             <Avatar image="/demo/images/avatar5.png" size="small" class="rounded-lg overflow-hidden" />
                             <Avatar label="+99" size="small" class="rounded-lg overflow-hidden text-xs" />
                         </AvatarGroup>
@@ -57,8 +57,8 @@
                         </div>
                         <div class="p-2 rounded-2xl flex items-center gap-3 bg-emphasis">
                             <OverlayBadge severity="danger" class="w-fit">
-                                <Avatar image="/demo/images/avatar4.png"
-                                    class="rounded-lg overflow-hidden w-10 h-10 block" />
+                                <Avatar image="/demo/images/avatar9.jpg"
+                                    class="rounded-lg overflow-hidden w-10 h-10 flex" />
                             </OverlayBadge>
                             <div class="flex-1">
                                 <div class="text-color text-sm font-medium leading-5">Courtney Henry</div>
@@ -152,10 +152,10 @@
                         <button
                             class="p-4 rounded-3xl w-full bg-emphasis transition-all text-color hover:text-color-emphasis flex items-center gap-2 justify-between cursor-pointer">
                             <div class="flex items-center [&>*]:-mr-2">
-                                <Avatar image="/demo/images/avatar1.png" size="small" shape="circle" />
-                                <Avatar image="/demo/images/avatar2.png" size="small" shape="circle" />
-                                <Avatar image="/demo/images/avatar3.png" size="small" shape="circle" />
-                                <Avatar image="/demo/images/avatar4.png" size="small" shape="circle" />
+                                <Avatar image="/demo/images/avatar11.jpg" size="small" shape="circle" />
+                                <Avatar image="/demo/images/avatar10.jpg" size="small" shape="circle" />
+                                <Avatar image="/demo/images/avatar12.jpg" size="small" shape="circle" />
+                                <Avatar image="/demo/images/avatar9.jpg" size="small" shape="circle" />
                                 <Avatar image="/demo/images/avatar5.png" size="small" shape="circle" />
                             </div>
                             <div class="flex items-center gap-2">
@@ -267,15 +267,15 @@
                         <div class="flex items-center gap-x-2 gap-y-1 flex-wrap flex-1">
                             <Avatar image="/demo/images/avatar1.png" size="small" shape="circle" />
                             <Avatar image="/demo/images/avatar2.png" size="small" shape="circle" />
-                            <Avatar image="/demo/images/avatar3.png" size="small" shape="circle" />
-                            <Avatar image="/demo/images/avatar4.png" size="small" shape="circle" />
+                            <Avatar image="/demo/images/avatar9.jpg" size="small" shape="circle" />
+                            <Avatar image="/demo/images/avatar11.jpg" size="small" shape="circle" />
                             <div class="w-full"></div>
                             <Avatar image="/demo/images/avatar5.png" size="small" shape="circle" />
-                            <Avatar image="/demo/images/avatar6.png" size="small" shape="circle" />
+                            <Avatar image="/demo/images/avatar13.jpg" size="small" shape="circle" />
                             <Avatar image="/demo/images/avatar7.png" size="small" shape="circle" />
                             <Avatar image="/demo/images/avatar8.png" size="small" shape="circle" />
-                            <Avatar image="/demo/images/avatar4.png" size="small" shape="circle" />
-                            <Avatar image="/demo/images/avatar5.png" size="small" shape="circle" />
+                            <Avatar image="/demo/images/avatar10.jpg" size="small" shape="circle" />
+                            <Avatar image="/demo/images/avatar12.jpg" size="small" shape="circle" />
                         </div>
                         <Button icon="pi pi-arrow-up-right" rounded text />
                     </div>
@@ -314,7 +314,7 @@
                                     }" />
                             </div>
                             <div class="flex items-center gap-2 justify-between">
-                                <Avatar image="/demo/images/avatar5.png" class="w-9 h-9" shape="circle" />
+                                <Avatar image="/demo/images/avatar13.jpg" class="w-9 h-9" shape="circle" />
                                 <div class="flex-1">
                                     <div class="text-sm font-medium text-color leading-5">Dianne Russell</div>
                                     <div class="text-sm text-muted-color leading-5 line-clamp-4">
@@ -330,7 +330,7 @@
                                     }" />
                             </div>
                             <div class="flex items-center gap-2 justify-between">
-                                <Avatar image="/demo/images/avatar7.png" class="w-9 h-9" shape="circle" />
+                                <Avatar image="/demo/images/avatar12.jpg" class="w-9 h-9" shape="circle" />
                                 <div class="flex-1">
                                     <div class="text-sm font-medium text-color leading-5">Jacob Jones</div>
                                     <div class="text-sm text-muted-color leading-5 line-clamp-4">

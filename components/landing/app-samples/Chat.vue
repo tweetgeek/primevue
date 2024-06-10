@@ -27,12 +27,12 @@
                     }">
                     <div class="relative">
                         <div v-if="chat.active !== undefined"
-                            class="absolute top-0.5 right-0.5 p-[1px] bg-surface-0 dark:bg-surface-950 rounded-full flex items-center justify-center">
-                            <Badge :severity="chat.active ? 'success' : 'danger'"></Badge>
+                            class="absolute top-0 right-0 p-[1px] bg-surface-0 dark:bg-surface-950 rounded-full flex items-center justify-center">
+                            <Badge :severity="chat.active ? 'success' : 'danger'" class="p-1.5"></Badge>
                         </div>
                         <Avatar v-bind="chat.image ? { image: chat.image } : { label: chat.capName }" :class="{
                             'bg-violet-100 text-violet-950': !chat.image
-                        }" class="text-base font-medium" size="large" shape="circle" />
+                        }" class="text-base font-medium flex" size="large" shape="circle" />
                     </div>
                     <div class="flex-1">
                         <div class="flex items-start gap-1 justify-between">
@@ -51,7 +51,7 @@
         <div class="flex-[0.5] border-x border-surface flex flex-col">
             <div class="flex items-center p-4 gap-7 border-b border-surface">
                 <div class="flex items-center">
-                    <Avatar image="/demo/images/avatar-primetek.png" class="mr-2" size="large" shape="circle" />
+                    <Avatar image="/demo/images/avatar-primetek.png" class="mr-2 av" size="large" shape="circle" />
                     <div class="flex-1">
                         <div
                             class="text-color leading-6 cursor-pointer hover:text-muted-color-emphasis transition-colors">
@@ -225,12 +225,12 @@ export default {
                 }
             ],
             chats: [
-                { image: '/demo/images/avatar1.png', name: 'Cody Fisher', capName: 'CF', active: true, unreadMessageCount: 8, time: '12.30', lastMessage: 'Hey there! I\'ve heard about PrimeVue. Any cool tips for getting started?' },
+                { image: '/demo/images/avatar11.jpg', name: 'Cody Fisher', capName: 'CF', active: true, unreadMessageCount: 8, time: '12.30', lastMessage: 'Hey there! I\'ve heard about PrimeVue. Any cool tips for getting started?' },
                 { image: '/demo/images/avatar-primetek.png', name: 'PrimeTek Team', capName: 'PT', active: undefined, unreadMessageCount: 0, time: '11.15', lastMessage: 'Let\'s implement PrimeVue. Elevating our UI game! 🚀' },
                 { image: '/demo/images/avatar2.png', name: 'Jerome Bell', capName: 'JB', active: true, unreadMessageCount: 4, time: '11.15', lastMessage: 'Absolutely! PrimeVue\'s documentation is gold—simplifies our UI work.' },
-                { image: '/demo/images/avatar3.png', name: 'Robert Fox', capName: 'RF', active: false, unreadMessageCount: 0, time: '11.15', lastMessage: 'Interesting! PrimeVue sounds amazing. What\'s your favorite feature?' },
-                { image: '/demo/images/avatar4.png', name: 'Esther Howard', capName: 'EH', active: true, unreadMessageCount: 9, time: '11.15', lastMessage: 'Quick one, team! Anyone using PrimeVue for mobile app development?' },
-                { image: '/demo/images/avatar5.png', name: 'Darlene Robertson', capName: 'DR', active: false, unreadMessageCount: 0, time: '11.15', lastMessage: 'Just explored PrimeVue\'s themes. Can we talk about those stunning designs? 😍' },
+                { image: '/demo/images/avatar12.jpg', name: 'Robert Fox', capName: 'RF', active: false, unreadMessageCount: 0, time: '11.15', lastMessage: 'Interesting! PrimeVue sounds amazing. What\'s your favorite feature?' },
+                { image: '/demo/images/avatar13.jpg', name: 'Esther Howard', capName: 'EH', active: true, unreadMessageCount: 9, time: '11.15', lastMessage: 'Quick one, team! Anyone using PrimeVue for mobile app development?' },
+                { image: '/demo/images/avatar9.jpg', name: 'Darlene Robertson', capName: 'DR', active: false, unreadMessageCount: 0, time: '11.15', lastMessage: 'Just explored PrimeVue\'s themes. Can we talk about those stunning designs? 😍' },
                 { image: '/demo/images/avatar6.png', name: 'Ralph Edwards', capName: 'RE', active: false, unreadMessageCount: 0, time: '11.15', lastMessage: 'PrimeVue is a game-changer, right? What are your thoughts, folks?' },
                 { image: '', name: 'Ronald Richards', capName: 'RR', active: false, unreadMessageCount: 0, time: '11.15', lastMessage: 'Jumping in! PrimeVue\'s community forum is buzzing. Any engaging discussions?' },
                 { image: '', name: 'Kristin Watson', capName: 'KW', active: false, unreadMessageCount: 0, time: '11.15', lastMessage: 'Sharing a quick win-PrimeVue tutorials are leveling up my UI skills. 👩‍💻' },
@@ -239,17 +239,17 @@ export default {
             chatMessages: [
                 { id: 1, attachment: '', name: '', image: '', capName: 'OS', type: 'received', message: "Awesome! What's the standout feature?" },
                 { id: 2, attachment: '', name: '', image: '/demo/images/avatar8.png', capName: 'A', type: 'received', message: "PrimeVue rocks! Simplifies UI dev with versatile components." },
-                { id: 3, attachment: '', name: '', image: '/demo/images/avatar7.png', capName: 'A', type: 'received', message: "Intriguing! Tell us more about its impact." },
+                { id: 3, attachment: '', name: '', image: '/demo/images/avatar11.jpg', capName: 'A', type: 'received', message: "Intriguing! Tell us more about its impact." },
                 { id: 4, attachment: '/demo/images/message-image.png', name: '', image: '/demo/images/avatar2.png', capName: 'A', type: 'received', message: "It's design-neutral and compatible with Tailwind. Features accessible, high-grade components!" },
                 { id: 5, attachment: '', name: '', image: '/demo/images/avatar5.png', capName: 'A', type: 'sent', message: "Customizable themes, responsive design – UI excellence!" },
                 { id: 6, attachment: '', name: '', image: '/demo/images/avatar8.png', capName: 'A', type: 'received', message: "Love it! Fast-tracking our development is key." },
                 { id: 7, attachment: '', name: '', image: '/demo/images/avatar6.png', capName: 'A', type: 'received', message: "Documentation rocks too – smooth integration for all." },
                 { id: 8, attachment: '', name: '', image: '/demo/images/avatar5.png', capName: 'B', type: 'sent', message: "The flexibility and ease of use are truly impressive. Have you explored the new components?" },
-                { id: 9, attachment: '', name: '', image: '/demo/images/avatar3.png', capName: 'C', type: 'received', message: "Absolutely, the new calendar component has saved us a ton of development time!" },
-                { id: 10, attachment: '', name: '', image: '/demo/images/avatar4.png', capName: 'D', type: 'received', message: "And the accessibility features are top-notch. It's great to see a library focusing on inclusivity." },
+                { id: 9, attachment: '', name: '', image: '/demo/images/avatar12.jpg', capName: 'C', type: 'received', message: "Absolutely, the new calendar component has saved us a ton of development time!" },
+                { id: 10, attachment: '', name: '', image: '/demo/images/avatar13.jpg', capName: 'D', type: 'received', message: "And the accessibility features are top-notch. It's great to see a library focusing on inclusivity." },
                 { id: 11, attachment: '/demo/images/message-image.png', name: '', image: '/demo/images/avatar5.png', capName: 'E', type: 'sent', message: "I couldn't agree more. Plus, the documentation is incredibly thorough, which makes onboarding new team members a breeze." },
                 { id: 12, attachment: '', name: '', image: '/demo/images/avatar6.png', capName: 'F', type: 'received', message: "Do you have any tips for optimizing performance when using multiple complex components?" },
-                { id: 13, attachment: '', name: '', image: '/demo/images/avatar7.png', capName: 'G', type: 'received', message: "Yes! Lazy loading and code splitting can make a huge difference, especially in larger applications." },
+                { id: 13, attachment: '', name: '', image: '/demo/images/avatar11.jpg', capName: 'G', type: 'received', message: "Yes! Lazy loading and code splitting can make a huge difference, especially in larger applications." },
                 { id: 14, attachment: '', name: '', image: '', capName: 'HS', type: 'received', message: "I've also found that leveraging the component's internal state management capabilities can help streamline data flow and improve performance." },
                 { id: 15, attachment: '', name: '', image: '/demo/images/avatar5.png', capName: 'H', type: 'sent', message: "That's great advice. It's amazing how much detail and thought has gone into making PrimeVue such a powerful tool for developers." }
             ],
@@ -262,7 +262,7 @@ export default {
             ],
             members: [
                 { name: 'Robin Jonas', capName: 'RJ', image: '/demo/images/avatar2.png' },
-                { name: 'Cameron Williamson', capName: 'CW', image: '/demo/images/avatar7.png' },
+                { name: 'Cameron Williamson', capName: 'CW', image: '/demo/images/avatar11.jpg' },
                 { name: 'Eleanor Pena', capName: 'EP', image: '/demo/images/avatar5.png' },
                 { name: 'Arlene McCoy', capName: 'AM', image: '/demo/images/avatar8.png' },
                 { name: 'Dianne Russell', capName: 'DR', image: '' },
