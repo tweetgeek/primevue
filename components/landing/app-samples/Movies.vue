@@ -96,7 +96,7 @@
                     </div>
                     <div class="mt-2 flex items-start justify-between gap-1">
                         <div class="px-2 flex-1">
-                            <div class="font-medium text-color leading-6">{{ movie.name }}</div>
+                            <div class="font-medium text-color leading-6 line-clamp-1">{{ movie.name }}</div>
                             <div class="mt-1 text-muted-color text-sm leading-5">{{
                                 movie.categories.join(', ') }}</div>
                         </div>
