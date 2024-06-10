@@ -108,7 +108,7 @@
                 class: 'flex-1 flex flex-col'
             }
         }">
-        <template #container="{ closeCallback }">
+        <template #container="">
             <div class="flex flex-col h-[100vh] overflow-auto">
                 <div class="">
                     <div class="flex align-items-center gap-3 p-6">

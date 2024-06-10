@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-1 h-full overflow-y-auto overflow-x-clip">
+    <div class="flex-1 h-full overflow-y-auto pb-0.5">
         <div class="flex flex-wrap gap-4 items-start justify-between">
             <div class="flex-1">
                 <div class="text-muted-color font-medium leading-normal">Overview</div>
@@ -55,7 +55,9 @@
                         <Menu ref="menu" id="overlay_menu" :model="menuItems" :popup="true" />
                     </div>
                     <DataTable :value="sampleAppsTableDatas" paginator :rows="5" dataKey="id"
-                        tableClass="overflow-x-auto dark:bg-surface-950" :pt="{
+                        tableClass="overflow-x-auto dark:bg-surface-950"
+                        paginatorTemplate="PrevPageLink PageLinks NextPageLink  CurrentPageReport RowsPerPageDropdown"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" :pt="{
 
                         }">
                         <Column header="Id" class="w-1/12">
@@ -68,7 +70,7 @@
                                 <div class="flex items-center">
                                     <Avatar :label="slotProps.data.name.label" class="mr-2 text-xs font-medium"
                                         style="background-color: #ece9fc; color: #2a1261" shape="circle" />
-                                    <div class="leading-6 text-muted-color">{{ slotProps.data.name.text }}</div>
+                                    <div class="leading-6 text-muted-color flex-1">{{ slotProps.data.name.text }}</div>
                                 </div>
                             </template>
                         </Column>
@@ -145,6 +147,7 @@ import InputText from '@/components/lib/inputtext/InputText.vue';
 import MeterGroup from '@/components/lib/metergroup/MeterGroup.vue';
 import OverlayBadge from '@/components/lib/overlaybadge/OverlayBadge.vue';
 import SelectButton from '@/components/lib/selectbutton/SelectButton.vue';
+import EventBus from '@/layouts/AppEventBus';
 export default {
     name: 'Overview',
     redrawListener: null,
@@ -189,10 +192,22 @@ export default {
             ],
         };
     },
+    beforeUnmount() {
+        EventBus.off('dark-mode-toggle-complete', this.redrawListener);
+        EventBus.off('theme-palette-change', this.redrawListener);
+    },
     mounted() {
         this.chartData = this.setChartData();
         this.chartOptions = this.setChartOptions();
         this.chartPlugings = this.setChartPlugins();
+
+        this.redrawListener = () => {
+            this.chartOptions = this.setChartOptions();
+            this.chartData = this.setChartData();
+        };
+
+        EventBus.on('theme-palette-change', this.redrawListener);
+        EventBus.on('dark-mode-toggle-complete', this.redrawListener);
     },
     methods: {
         toggle(event) {
@@ -208,21 +223,21 @@ export default {
                         type: 'bar',
                         label: 'Personal Wallet',
                         backgroundColor: 'color-mix(in srgb, ' + documentStyle.getPropertyValue('--p-primary-400') + ' 100%, #fff)',
-                        data: [40, 100, 150, 40, 160, 80, 210, 280, 170, 50, 120, 60],
+                        data: [4000, 10000, 15000, 4000, 16000, 8000, 12000, 14000, 17000, 5000, 12000, 6000],
                         barThickness: 32,
                     },
                     {
                         type: 'bar',
                         label: 'Corporate Wallet',
                         backgroundColor: 'color-mix(in srgb, ' + documentStyle.getPropertyValue('--p-primary-300') + ' 100%, transparent)',
-                        data: [21, 84, 24, 75, 37, 65, 34, 12, 48, 90, 76, 42],
+                        data: [2100, 8400, 2400, 7500, 3700, 6500, 7400, 8000, 4800, 9000, 7600, 4200],
                         barThickness: 32,
                     },
                     {
                         type: 'bar',
                         label: 'Investment Wallet',
                         backgroundColor: 'color-mix(in srgb, ' + documentStyle.getPropertyValue('--p-primary-200') + ' 100%, transparent)',
-                        data: [41, 52, 24, 74, 23, 21, 32, 12, 48, 90, 76, 42],
+                        data: [4100, 5200, 2400, 7400, 2300, 4100, 7200, 8000, 4800, 9000, 7600, 4200],
                         borderRadius: {
                             topLeft: 8,
                             topRight: 8
@@ -234,12 +249,13 @@ export default {
             };
         },
         setChartOptions() {
+            const darkMode = document.documentElement.classList.contains('p-dark');
             const documentStyle = getComputedStyle(document.documentElement);
-            const textColor = documentStyle.getPropertyValue('--p-text-color');
-            const textColorSecondary = documentStyle.getPropertyValue('--p-text-color-secondary');
-            const surfaceBorder = documentStyle.getPropertyValue('--p-surface-100');
-            const textMutedColor = documentStyle.getPropertyValue('--p-surface-400');
 
+            const backgroundColor = documentStyle.getPropertyValue(darkMode ? '--p-surface-900' : '--p-surface-0');
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const borderColor = documentStyle.getPropertyValue(darkMode ? '--p-surface-800' : '--p-surface-100');
+            const textMutedColor = documentStyle.getPropertyValue(darkMode ? '--p-surface-500' : '--p-surface-400');
 
             const getOrCreateTooltip = (chart) => {
                 let tooltipEl = chart.canvas.parentNode.querySelector('div.chartjs-tooltip');
@@ -247,12 +263,12 @@ export default {
                 if (!tooltipEl) {
                     tooltipEl = document.createElement('div');
                     tooltipEl.classList.add('chartjs-tooltip');
-                    tooltipEl.style.backgroundColor = 'white'
+                    tooltipEl.style.backgroundColor = backgroundColor
                     tooltipEl.style.boxShadow = '0px 25px 20px -5px rgba(0, 0, 0, 0.10), 0px 10px 8px -6px rgba(0, 0, 0, 0.10)'
                     tooltipEl.style.borderRadius = '7px';
-                    tooltipEl.style.color = 'black';
+                    tooltipEl.style.color = textColor;
                     tooltipEl.style.opacity = 1;
-                    tooltipEl.style.width = '240px'
+                    tooltipEl.style.width = '232px'
                     tooltipEl.style.padding = '14.5px'
                     tooltipEl.style.pointerEvents = 'none';
                     tooltipEl.style.position = 'absolute';
@@ -293,7 +309,6 @@ export default {
                                 return;
                             }
 
-                            // Set Text
                             if (tooltip.body) {
                                 const bodyLines = tooltip.body.map(b => {
                                     const strArr = b.lines[0].split(':');
@@ -338,7 +353,7 @@ export default {
                                     span.style.justifyContent = 'center'
                                     span.style.marginRight = '3px';
                                     span.style.padding = '3px'
-                                    span.style.border = '1px solid rgb(0,0,0,0.15)'
+                                    span.style.border = '1px solid ' + borderColor + ''
                                     span.style.borderRadius = '99px'
                                     span.appendChild(innerSpan)
 
@@ -405,7 +420,7 @@ export default {
                             }
                         },
                         grid: {
-                            color: surfaceBorder,
+                            color: borderColor,
                             borderColor: 'transparent'
                         }
                     }
@@ -417,10 +432,6 @@ export default {
                 'chartAreaBorder'
             ]
         },
-        /*Sample Apps Methods*/
-        setSelectedSampleAppsSidebarNav(title) {
-            this.selectedSampleAppsSidebarNav = title;
-        }
     },
     components: {
         Avatar,

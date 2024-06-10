@@ -21,13 +21,16 @@
                 </div>
                 <div>
                     <div class="border border-surface rounded-border px-4 pb-4 pt-3 mb-4">
-                        <div class="font-medium text-color">Free Version</div>
-                        <div class="relative w-full bg-emphasis h-5 rounded-md overflow-hidden mt-4">
-                            <span class="absolute top-0 left-0 bg-red-600 h-full w-3/4"></span>
+                        <div class="font-medium text-color mb-4">Free Version</div>
+                        <ProgressBar :value="75" :pt="{
+                            value: {
+                                class: 'bg-red-600'
+                            }
+                        }">
                             <span
-                                class="text-sm text-surface-0 leading-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">4
+                                class="w-full text-center text-sm font-normal text-surface-0 leading-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">4
                                 days left</span>
-                        </div>
+                        </ProgressBar>
                     </div>
                     <Button label="Upgrade to PRO 🚀" outlined class="w-full" />
                 </div>

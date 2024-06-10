@@ -20,7 +20,7 @@
             </div>
         </div>
         <div
-            class="bg-surface-0 border border-black/10 dark:border-white/20 dark:bg-surface-950 w-full h-[85vh] mt-16 rounded-3xl p-6 flex items-start gap-6 overflow-hidden">
+            class="bg-surface-0 border border-black/10 dark:border-white/20 dark:bg-surface-950 w-full h-[85vh] max-h-[1040px] mt-16 rounded-3xl p-6 flex items-start gap-6 overflow-hidden">
             <div class="w-72 rounded-2xl p-5 bg-surface-50 dark:bg-surface-900 h-full flex flex-col justify-between">
                 <div>
                     <div class="flex items-center gap-3">

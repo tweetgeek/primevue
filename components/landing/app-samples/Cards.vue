@@ -47,7 +47,7 @@
                         <div class="p-2 rounded-2xl flex items-center gap-3 bg-emphasis">
                             <OverlayBadge severity="danger" class="w-fit">
                                 <Avatar image="/demo/images/main-avatar.png"
-                                    class="rounded-lg overflow-hidden w-10 h-10" />
+                                    class="rounded-lg overflow-hidden w-10 h-10 block" />
                             </OverlayBadge>
                             <div class="flex-1">
                                 <div class="text-color text-sm font-medium leading-5">Jacob Jones</div>
@@ -57,7 +57,8 @@
                         </div>
                         <div class="p-2 rounded-2xl flex items-center gap-3 bg-emphasis">
                             <OverlayBadge severity="danger" class="w-fit">
-                                <Avatar image="/demo/images/avatar4.png" class="rounded-lg overflow-hidden w-10 h-10" />
+                                <Avatar image="/demo/images/avatar4.png"
+                                    class="rounded-lg overflow-hidden w-10 h-10 block" />
                             </OverlayBadge>
                             <div class="flex-1">
                                 <div class="text-color text-sm font-medium leading-5">Courtney Henry</div>
@@ -119,7 +120,9 @@
                                 <div class="text-2xl text-color font-medium">Data Analyst </div>
                                 <div class="mt-2 text-color">Data Insights Ltd.</div>
                             </div>
-                            <Button icon="pi pi-bookmark" severity="secondary" outlined rounded />
+                            <Button @click="jobApplication = !jobApplication"
+                                :icon="jobApplication ? 'pi pi-bookmark-fill' : 'pi pi-bookmark'" severity="secondary"
+                                outlined rounded />
                         </div>
                         <div class="flex flex-wrap gap-1 items-center justify-between">
                             <div class="flex items-center gap-2 whitespace-nowrap text-muted-color">
@@ -176,7 +179,70 @@
                     </div>
                     <div>
                         <label class="text-color font-medium leading-6">Upload Files</label>
+                        <FileUpload name="demo[]" url="/api/upload" @upload="onTemplatedUpload($event)" :pt="{
+                            root: {
+                                class: 'bg-transparent border-dashed mt-2'
+                            },
+                            header: {
+                                class: 'hidden'
+                            },
+                            content: {
+                                class: 'p-0'
+                            }
+                        }" accept="image/*" :maxFileSize="1000000" @select="onSelectedFiles">
 
+                            <!-- <template
+                                #content="{ files, uploadedFiles, removeUploadedFileCallback, removeFileCallback }">
+                                <div v-if="files.length > 0">
+                                    <h5>Pending</h5>
+                                    <div class="flex flex-wrap p-0 sm:p-5 gap-5">
+                                        <div v-for="(file, index) of files" :key="file.name + file.type + file.size"
+                                            class="card m-0 px-6 flex flex-column border-1 surface-border align-items-center gap-3">
+                                            <div>
+                                                <img role="presentation" :alt="file.name" :src="file.objectURL"
+                                                    width="100" height="50" />
+                                            </div>
+                                            <span class="font-semibold">{{ file.name }}</span>
+                                            <div>{{ formatSize(file.size) }}</div>
+                                            <Badge value="Pending" severity="warning" />
+                                            <Button icon="pi pi-times"
+                                                @click="onRemoveTemplatingFile(file, removeFileCallback, index)"
+                                                outlined rounded severity="danger" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div v-if="uploadedFiles.length > 0">
+                                    <h5>Completed</h5>
+                                    <div class="flex flex-wrap p-0 sm:p-5 gap-5">
+                                        <div v-for="(file, index) of uploadedFiles"
+                                            :key="file.name + file.type + file.size"
+                                            class="card m-0 px-6 flex flex-column border-1 surface-border align-items-center gap-3">
+                                            <div>
+                                                <img role="presentation" :alt="file.name" :src="file.objectURL"
+                                                    width="100" height="50" />
+                                            </div>
+                                            <span class="font-semibold">{{ file.name }}</span>
+                                            <div>{{ formatSize(file.size) }}</div>
+                                            <Badge value="Completed" class="mt-3" severity="success" />
+                                            <Button icon="pi pi-times" @click="removeUploadedFileCallback(index)"
+                                                outlined rounded severity="danger" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </template> -->
+                            <template #empty="{ uploadCallback }">
+                                <div class="flex flex-col items-center justify-center p-6 cursor-pointer">
+                                    <i class="pi pi-cloud-upload text-4xl text-color" />
+                                    <div class="text-sm text-color font-medium mt-2">Click to upload <snap
+                                            class="text-muted-color">or and drop</snap>
+                                    </div>
+                                    <p class="mt-2 mb-0 text-sm text-muted-color text-center">PDF, JPG, PNG, JPEG, DOC,
+                                        CSV, XML,
+                                        XMLX, XLS, XLSX (max 10MB)</p>
+                                </div>
+                            </template>
+                        </FileUpload>
                     </div>
                     <div>
                         <label class="text-color font-medium leading-6">Tag (Optional)</label>
@@ -344,7 +410,11 @@
                         <Button label="Resend" text />
                     </div>
                     <div class="flex items-center justify-center">
-                        <InputOtp v-model="forgotPasswordOTP" :length="6" />
+                        <InputOtp v-model="forgotPasswordOTP" :length="6" :pt="{
+                            root: {
+                                class: 'w-full [&>*]:flex-1 [&>*]:min-h-14 [&>*]:text-2xl ',
+                            },
+                        }" />
                     </div>
                     <Button label="Change password" />
                 </div>
@@ -405,6 +475,10 @@ export default {
     redrawListener: null,
     data() {
         return {
+            files: [],
+            totalSize: 0,
+            totalSizePercent: 0,
+            jobApplication: false,
             userProfiles: 'Chilling',
             userProfilesOptions: ['Chilling', 'Do Not Disturb'],
             userProfilesValues: [true, true, false, false, true, false],
@@ -446,6 +520,43 @@ export default {
         };
     },
     methods: {
+        onRemoveTemplatingFile(file, removeFileCallback, index) {
+            removeFileCallback(index);
+            this.totalSize -= parseInt(this.formatSize(file.size));
+            this.totalSizePercent = this.totalSize / 10;
+        },
+        onClearTemplatingUpload(clear) {
+            clear();
+            this.totalSize = 0;
+            this.totalSizePercent = 0;
+        },
+        onSelectedFiles(event) {
+            this.files = event.files;
+            this.files.forEach((file) => {
+                this.totalSize += parseInt(this.formatSize(file.size));
+            });
+        },
+        uploadEvent(callback) {
+            this.totalSizePercent = this.totalSize / 10;
+            callback();
+        },
+        onTemplatedUpload() {
+            this.$toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
+        },
+        formatSize(bytes) {
+            const k = 1024;
+            const dm = 3;
+            const sizes = this.$primevue.config.locale.fileSizeTypes;
+
+            if (bytes === 0) {
+                return `0 ${sizes[0]}`;
+            }
+
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            const formattedSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
+
+            return `${formattedSize} ${sizes[i]}`;
+        }
     },
     components: {
         Avatar,
