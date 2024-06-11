@@ -203,8 +203,8 @@
                                     class="flex flex-col items-center justify-center p-6 cursor-pointer"
                                     @click="chooseCallback()">
                                     <i class="pi pi-cloud-upload text-4xl text-color" />
-                                    <div class="text-sm text-color font-medium mt-2">Click to upload <snap
-                                            class="text-muted-color">or and drop</snap>
+                                    <div class="text-sm text-color font-medium mt-2">Click to upload <span
+                                            class="text-muted-color">or and drop</span>
                                     </div>
                                     <p class="mt-2 mb-0 text-sm text-muted-color text-center">PDF, JPG, PNG, JPEG, DOC,
                                         CSV, XML, XMLX, XLS, XLSX (max 10MB)</p>
