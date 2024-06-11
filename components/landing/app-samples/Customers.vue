@@ -253,7 +253,7 @@
                             <div
                                 class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
                                 <Knob v-model="customerSatisfaction" :size="150" :strokeWidth="8"
-                                    valueTemplate="{value}%" />
+                                    valueTemplate="{value}%" class="pointer-events-none" />
                             </div>
                         </div>
                         <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
@@ -289,13 +289,13 @@
                             <div class="font-medium text-color p-2">Churn Risk</div>
                             <div
                                 class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
-                                <Knob v-model="customerSatisfaction" :size="150" :strokeWidth="8"
-                                    valueTemplate="{value}%" />
+                                <Knob v-model="churnRisk" :size="150" :strokeWidth="8" valueTemplate="{value}%"
+                                    class="pointer-events-none" />
                             </div>
                         </div>
                     </div>
                     <div class="mt-4 w-full flex flex-col p-3 rounded-xl bg-emphasis">
-                        <div class="font-medium text-color p-2">Churn Risk</div>
+                        <div class="font-medium text-color p-2">Total Purchases</div>
                         <div
                             class="flex-1 py-4 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
                             <Chart type="bar" :data="chartData" :options="chartOptions" class="h-60 w-full" />
