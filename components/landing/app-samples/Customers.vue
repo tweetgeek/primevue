@@ -181,7 +181,7 @@
                         <div class="flex items-start justify-between">
                             <div class="leading-6 font-medium text-color">Meeting Notes</div>
                             <Button icon="pi pi-download text-sm"
-                                class="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all"
+                                class="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all leading-none"
                                 severity="secondary" text />
                         </div>
                         <div
@@ -232,7 +232,7 @@
                         <div class="flex items-start justify-between gap-2">
                             <div class="font-medium text-color mt-0.5">{{ data.title }}</div>
                             <NuxtLink :to="data.link" target="_blank" rel="noopener">
-                                <Button icon="pi pi-arrow-up-right text-sm"
+                                <Button icon="pi pi-arrow-up-right text-sm !leading-none"
                                     class="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900"
                                     severity="secondary" text />
                             </NuxtLink>

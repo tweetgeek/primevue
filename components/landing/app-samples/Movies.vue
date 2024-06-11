@@ -12,7 +12,7 @@
                     <OverlayBadge severity="danger" :pt="{
                         pcbadge: {
                             root: {
-                                class: 'w-1 h-1'
+                                class: '!min-w-0 !w-2.5 !h-2.5'
                             }
                         }
                     }">
@@ -20,7 +20,13 @@
                     </OverlayBadge>
                 </Button>
                 <Button severity="secondary" outlined>
-                    <OverlayBadge severity="danger" size="small">
+                    <OverlayBadge severity="danger" size="small" :pt="{
+                        badge: {
+                            pcBadge: {
+                                class: 'p-0'
+                            }
+                        }
+                    }">
                         <i class="pi pi-bell" />
                     </OverlayBadge>
                 </Button>

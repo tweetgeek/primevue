@@ -12,7 +12,11 @@
                 </IconField>
                 <Button severity="secondary" outlined>
                     <OverlayBadge severity="danger" :pt="{
-                        badge: { root: 'min-w-0 h-0' }
+                        pcbadge: {
+                            root: {
+                                class: '!min-w-0 !w-2.5 !h-2.5'
+                            }
+                        }
                     }">
                         <i class="pi pi-bell" />
                     </OverlayBadge>
