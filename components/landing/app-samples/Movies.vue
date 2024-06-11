@@ -3,13 +3,13 @@
         class="flex-1 flex flex-col gap-6 p-6 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl">
         <div class="flex flex-wrap gap-4 items-center justify-between">
             <SelectButton v-model="value" :options="options" aria-labelledby="basic" />
-            <div class="flex gap-2">
+            <div class="flex gap-2.5 items-center">
                 <IconField iconPosition="left">
                     <InputIcon class="pi pi-search"> </InputIcon>
                     <InputText v-model="value1" placeholder="Search" />
                 </IconField>
                 <Button severity="secondary" outlined>
-                    <OverlayBadge severity="danger" :pt="{
+                    <OverlayBadge severity="danger" size="small" :pt="{
                         pcbadge: {
                             root: {
                                 class: '!min-w-0 !w-2.5 !h-2.5'
@@ -19,17 +19,7 @@
                         <i class="pi pi-bell" />
                     </OverlayBadge>
                 </Button>
-                <Button severity="secondary" outlined>
-                    <OverlayBadge severity="danger" size="small" :pt="{
-                        badge: {
-                            pcBadge: {
-                                class: 'p-0'
-                            }
-                        }
-                    }">
-                        <i class="pi pi-bell" />
-                    </OverlayBadge>
-                </Button>
+                <Avatar image="/demo/images/avatar11.jpg" shape="circle" class="w-9 h-9 cursor-pointer" />
             </div>
         </div>
         <div class="">
