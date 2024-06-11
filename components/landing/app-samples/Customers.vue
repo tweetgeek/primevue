@@ -476,7 +476,7 @@ export default {
                             topRight: 4
                         },
                         borderSkipped: true,
-                        barThickness: 16,
+                        barThickness: 20,
                         hoverBackgroundColor: 'color-mix(in srgb, ' + documentStyle.getPropertyValue(darkMode ? '--p-surface-0' : '--p-surface-800') + ' 100%, transparent)',
                         hoverTransition: '1s ease all'
                     }
