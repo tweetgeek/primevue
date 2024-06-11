@@ -303,7 +303,7 @@ export default {
                     title: 'New Arrivals - Check Out the Latest Books',
                     message: 'Book enthusiasts, discover our latest arrivals! Explore the attached catalog and dive into the world of new releases. Available for purchase starting [Date].'
                 },
-                { id: 14, bookmarked: true, image: '/demo/images/avatar9.jpg', active: false, name: 'Arlene McCoy', type: '12.04.2023', time: '12.04.2023', title: 'New Product Demo', message: 'Exclusive demo of our latest product on Thursday.' },
+                { id: 14, bookmarked: true, image: '/demo/images/avatar9.jpg', active: false, name: 'Arlene McCoy', type: '', time: '12.04.2023', title: 'New Product Demo', message: 'Exclusive demo of our latest product on Thursday.' },
                 {
                     id: 15,
                     bookmarked: false,
