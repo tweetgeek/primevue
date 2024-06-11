@@ -265,7 +265,8 @@
                     </div>
                     <div>
                         <label class="text-color font-medium leading-6">Tag (Optional)</label>
-                        <Chips v-model="filesTag" class="w-full mt-2" />
+                        <AutoComplete v-model="filesTag" class="w-full mt-2" inputId="multiple-ac-2" multiple
+                            @complete="search" :typeahead="false" />
                     </div>
                     <div class="flex items-center gap-2">
                         <label v-for="permission in permissions" :key="permission.key" :for="permission.key"
@@ -309,7 +310,8 @@
                     <div>
                         <div class="text-muted-color leading-6">Email</div>
                         <div class="flex items-start gap-3 mt-2">
-                            <Chips v-model="emailChips" class="flex-1" />
+                            <AutoComplete v-model="emailChips" inputId="multiple-ac-2" class="flex-1" multiple
+                                @complete="search" :typeahead="false" />
                             <Button label="Invite" />
                         </div>
                     </div>
@@ -578,6 +580,9 @@ export default {
             const formattedSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
 
             return `${formattedSize} ${sizes[i]}`;
+        },
+        search(event) {
+            this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
         }
     },
     components: {
