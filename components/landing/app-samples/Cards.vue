@@ -2,7 +2,7 @@
     <div class="flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-6">
         <div class="text-color text-2xl font-medium leading-8">Cards</div>
         <div class="mt-1 text-muted-color leading-6">You can make cards using Aura like below 👇</div>
-        <div class="mt-6 flex items-start gap-6">
+        <div class="mt-6 flex flex-wrap items-start gap-6">
             <div class="flex-1 flex flex-col gap-6">
                 <div class="border border-surface rounded-3xl p-6 flex flex-col gap-6">
                     <div class="flex items-center gap-3">
@@ -354,8 +354,8 @@
                     </div>
                 </div>
             </div>
-            <div class="flex-1 flex flex-col gap-6">
-                <div class="border border-surface rounded-3xl p-6">
+            <div class="flex-1 flex flex-wrap gap-6">
+                <div class="flex-1 border border-surface rounded-3xl p-6">
                     <div class="text-color font-medium leading-6 mb-4">User Profiles</div>
                     <SelectButton
                         v-model="userProfiles"
@@ -399,7 +399,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="border border-surface rounded-3xl p-6 flex flex-col gap-6">
+                <div class="flex-1 border border-surface rounded-3xl p-6 flex flex-col gap-6">
                     <div class="font-medium text-color text-2xl text-center">Forgot Password</div>
                     <div>
                         <div class="text-muted-color text-lg text-center leading-snug">
