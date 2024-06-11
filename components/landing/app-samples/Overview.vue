@@ -11,16 +11,13 @@
                     <InputText placeholder="Search" />
                 </IconField>
                 <Button severity="secondary" outlined>
-                    <OverlayBadge
-                        severity="danger"
-                        :pt="{
-                            pcbadge: {
-                                root: {
-                                    class: '!min-w-0 !w-2.5 !h-2.5'
-                                }
+                    <OverlayBadge severity="danger" :pt="{
+                        pcbadge: {
+                            root: {
+                                class: '!min-w-0 !w-2.5 !h-2.5'
                             }
-                        }"
-                    >
+                        }
+                    }">
                         <i class="pi pi-bell" />
                     </OverlayBadge>
                 </Button>
@@ -30,7 +27,8 @@
             <SelectButton v-model="selectedTime" :options="timeOptions" aria-labelledby="basic" />
             <div class="flex items-center gap-2">
                 <Button label="Download" icon="pi pi-download" iconPos="right" />
-                <Calendar v-model="dates" selectionMode="range" :manualInput="false" showIcon iconDisplay="input" placeholder="06/11/2024 - 06/22/2024" />
+                <DatePicker v-model="dates" selectionMode="range" :manualInput="false" showIcon iconDisplay="input"
+                    placeholder="06/11/2024 - 06/22/2024" />
             </div>
         </div>
         <div class="flex flex-col gap-6 mt-6">
@@ -40,7 +38,8 @@
                     <div class="flex items-center gap-5">
                         <div v-for="(item, index) in chartData?.datasets" :key="index" class="flex items-center gap-2">
                             <div class="p-1 rounded-full border border-surface flex items-center justify-center">
-                                <div class="w-2 h-2 rounded-full" :style="{ backgroundColor: item.backgroundColor }"></div>
+                                <div class="w-2 h-2 rounded-full" :style="{ backgroundColor: item.backgroundColor }">
+                                </div>
                             </div>
                             <span class="font-medium text-color leading-6">{{ item.label }}</span>
                         </div>
@@ -52,19 +51,14 @@
                 <div class="flex-1 border border-surface rounded-2xl py-5 px-7">
                     <div class="flex items-center gap-6 mb-4">
                         <div class="flex-1 text-color font-semibold leading-6">Transactions</div>
-                        <Button type="button" icon="pi pi-ellipsis-h" severity="secondary" text @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" />
+                        <Button type="button" icon="pi pi-ellipsis-h" severity="secondary" text @click="toggle"
+                            aria-haspopup="true" aria-controls="overlay_menu" />
                         <Menu ref="menu" id="overlay_menu" :model="menuItems" :popup="true" />
                     </div>
-                    <DataTable
-                        :value="sampleAppsTableDatas"
-                        paginator
-                        :rows="5"
-                        dataKey="id"
+                    <DataTable :value="sampleAppsTableDatas" paginator :rows="5" dataKey="id"
                         tableClass="overflow-x-auto dark:bg-surface-950"
                         paginatorTemplate="PrevPageLink PageLinks NextPageLink  CurrentPageReport RowsPerPageDropdown"
-                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                        :pt="{}"
-                    >
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" :pt="{}">
                         <Column header="Id" class="w-1/12">
                             <template #body="slotProps">
                                 <div class="text-muted-color">{{ slotProps.data.id }}</div>
@@ -73,7 +67,8 @@
                         <Column header="Name" class="w-1/4">
                             <template #body="slotProps">
                                 <div class="flex items-center">
-                                    <Avatar :label="slotProps.data.name.label" class="mr-2 text-xs font-medium" style="background-color: #ece9fc; color: #2a1261" shape="circle" />
+                                    <Avatar :label="slotProps.data.name.label" class="mr-2 text-xs font-medium"
+                                        style="background-color: #ece9fc; color: #2a1261" shape="circle" />
                                     <div class="leading-6 text-muted-color flex-1">{{ slotProps.data.name.text }}</div>
                                 </div>
                             </template>
@@ -81,14 +76,12 @@
                         <Column header="Coin" class="w-1/6">
                             <template #body="slotProps">
                                 <div class="flex items-center">
-                                    <i
-                                        :class="[
-                                            {
-                                                'pi pi-bitcoin text-yellow-500 text-3xl': slotProps.data.coin !== 'btc',
-                                                'pi pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-7 h-7 rounded-full flex items-center justify-center': slotProps.data.coin !== 'eth'
-                                            }
-                                        ]"
-                                    ></i>
+                                    <i :class="[
+                                        {
+                                            'pi pi-bitcoin text-yellow-500 text-3xl': slotProps.data.coin !== 'btc',
+                                            'pi pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-7 h-7 rounded-full flex items-center justify-center': slotProps.data.coin !== 'eth'
+                                        }
+                                    ]"></i>
                                 </div>
                             </template>
                         </Column>
@@ -99,7 +92,8 @@
                         </Column>
                         <Column header="Process" class="w-1/6">
                             <template #body="slotProps">
-                                <Tag :severity="slotProps.data.process.type" :value="slotProps.data.process.value" class="font-medium"></Tag>
+                                <Tag :severity="slotProps.data.process.type" :value="slotProps.data.process.value"
+                                    class="font-medium"></Tag>
                             </template>
                         </Column>
                         <Column header="Amount" class="w-1/6">
@@ -113,7 +107,8 @@
                     <div>
                         <div class="flex items-center gap-6 mb-6">
                             <div class="flex-1 text-color font-semibold leading-6">My Wallet</div>
-                            <Button type="button" icon="pi pi-ellipsis-h" severity="secondary" text @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" />
+                            <Button type="button" icon="pi pi-ellipsis-h" severity="secondary" text @click="toggle"
+                                aria-haspopup="true" aria-controls="overlay_menu" />
                             <Menu ref="menu" id="overlay_menu" :model="menuItems" :popup="true" />
                         </div>
                         <MeterGroup :value="metersData" labelPosition="end">
@@ -121,7 +116,8 @@
                                 <div class="flex flex-col gap-6 mt-4">
                                     <template v-for="val of value" :key="val.label">
                                         <div class="flex items-center gap-2">
-                                            <div class="w-2 h-2 rounded-full" :style="{ backgroundColor: val.color }"></div>
+                                            <div class="w-2 h-2 rounded-full" :style="{ backgroundColor: val.color }">
+                                            </div>
                                             <div class="text-color uppercase font-medium leading-6 flex-1">
                                                 {{ val.label }}
                                                 <span class="text-muted-color">({{ val.value }}%)</span>
@@ -141,18 +137,7 @@
 </template>
 
 <script>
-import Avatar from '@/components/lib/avatar/Avatar.vue';
-import Button from '@/components/lib/button/Button.vue';
-import Calendar from '@/components/lib/calendar/Calendar.vue';
-import Chart from '@/components/lib/chart/Chart.vue';
-import Column from '@/components/lib/column/Column.vue';
-import DataTable from '@/components/lib/datatable/DataTable.vue';
-import IconField from '@/components/lib/iconfield/IconField.vue';
-import InputIcon from '@/components/lib/inputicon/InputIcon.vue';
-import InputText from '@/components/lib/inputtext/InputText.vue';
-import MeterGroup from '@/components/lib/metergroup/MeterGroup.vue';
-import OverlayBadge from '@/components/lib/overlaybadge/OverlayBadge.vue';
-import SelectButton from '@/components/lib/selectbutton/SelectButton.vue';
+
 import EventBus from '@/layouts/AppEventBus';
 export default {
     name: 'Overview',
@@ -437,18 +422,7 @@ export default {
         }
     },
     components: {
-        Avatar,
-        IconField,
-        InputIcon,
-        InputText,
-        OverlayBadge,
-        MeterGroup,
-        Column,
-        DataTable,
-        Chart,
-        Button,
-        SelectButton,
-        Calendar
+
     }
 };
 </script>

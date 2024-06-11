@@ -1,24 +1,21 @@
 <template>
-    <div class="flex-1 flex flex-col gap-6 p-6 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl">
+    <div
+        class="flex-1 flex flex-col gap-6 p-6 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl">
         <div class="flex flex-wrap gap-4 items-center justify-between">
             <SelectButton v-model="value" :options="options" aria-labelledby="basic" />
             <div class="flex gap-2.5 items-center">
                 <IconField iconPosition="left">
                     <InputIcon class="pi pi-search"> </InputIcon>
-                    <InputText v-model="value1" placeholder="Search" />
+                    <InputText v-model="search" placeholder="Search" />
                 </IconField>
                 <Button severity="secondary" outlined>
-                    <OverlayBadge
-                        severity="danger"
-                        size="small"
-                        :pt="{
-                            pcbadge: {
-                                root: {
-                                    class: '!min-w-0 !w-2.5 !h-2.5'
-                                }
+                    <OverlayBadge severity="danger" size="small" :pt="{
+                        pcbadge: {
+                            root: {
+                                class: '!min-w-0 !w-2.5 !h-2.5'
                             }
-                        }"
-                    >
+                        }
+                    }">
                         <i class="pi pi-bell" />
                     </OverlayBadge>
                 </Button>
@@ -29,45 +26,49 @@
             <div class="flex items-center justify-between gap-2 mb-6">
                 <div class="text-color text-xl font-medium leading-7">Keep watching</div>
                 <div class="xl:flex hidden items-center gap-2">
-                    <Button :disabled="page === 0" @click="page -= 1" icon="pi pi-chevron-left" severity="secondary" outlined />
-                    <Button :disabled="page === carouselData.length - page" @click="page += 1" icon="pi pi-chevron-right" severity="secondary" outlined />
+                    <Button :disabled="page === 0" @click="page -= 1" icon="pi pi-chevron-left" severity="secondary"
+                        outlined />
+                    <Button :disabled="page === carouselData.length - page" @click="page += 1"
+                        icon="pi pi-chevron-right" severity="secondary" outlined />
                 </div>
                 <div class="xl:hidden flex items-center gap-2">
-                    <Button :disabled="page === 0" @click="page -= 1" icon="pi pi-chevron-left" severity="secondary" outlined />
-                    <Button :disabled="page === carouselData.length - 3" @click="page += 1" icon="pi pi-chevron-right" severity="secondary" outlined />
+                    <Button :disabled="page === 0" @click="page -= 1" icon="pi pi-chevron-left" severity="secondary"
+                        outlined />
+                    <Button :disabled="page === carouselData.length - 3" @click="page += 1" icon="pi pi-chevron-right"
+                        severity="secondary" outlined />
                 </div>
             </div>
-            <Carousel :value="carouselData" :page="page" :numVisible="5" :numScroll="1" :responsiveOptions="responsiveOptions" :showIndicators="false" :showNavigators="false">
+            <Carousel :value="carouselData" :page="page" :numVisible="5" :numScroll="1"
+                :responsiveOptions="responsiveOptions" :showIndicators="false" :showNavigators="false">
                 <template #item="slotProps">
                     <div class="p-2 rounded-xl hover:bg-emphasis transition-colors cursor-pointer">
                         <div class="relative w-full aspect-[195/118.5] rounded-lg overflow-hidden">
-                            <img :src="slotProps.data.image" class="w-full h-full object-cover" alt="Carousel Movie Image" />
-                            <div class="absolute z-10 top-2 right-2 px-2 py-1 text-sm font-medium leading-tight bg-surface-0 dark:bg-surface-950 border border-surface rounded-md">
+                            <img :src="slotProps.data.image" class="w-full h-full object-cover"
+                                alt="Carousel Movie Image" />
+                            <div
+                                class="absolute z-10 top-2 right-2 px-2 py-1 text-sm font-medium leading-tight bg-surface-0 dark:bg-surface-950 border border-surface rounded-md">
                                 {{ slotProps.data.point }}
                             </div>
                             <div class="absolute z-10 bottom-2 inset-x-2">
-                                <MeterGroup
-                                    :value="[{ label: '', value: slotProps.data.watchedPercent }]"
-                                    :pt="{
-                                        meters: {
-                                            class: 'bg-surface-950 dark:bg-surface-50'
-                                        },
-                                        meter: {
-                                            class: 'bg-primary-contrast'
-                                        },
-                                        labellist: {
-                                            class: 'hidden opacity-0'
-                                        }
-                                    }"
-                                />
+                                <ProgressBar :value="slotProps.data.watchedPercent" :showValue="false" :pt="{
+                                    root: {
+                                        class: 'h-1.5 bg-surface-950 dark:bg-surface-50 rounded-full'
+                                    },
+                                    value: {
+                                        class: 'bg-surface-0 dark:bg-surface-950 rounded-full'
+                                    }
+                                }"></ProgressBar>
                             </div>
                         </div>
                         <div class="mt-2 flex items-start justify-between gap-1">
                             <div class="px-2 flex-1">
-                                <div class="font-medium text-color leading-6">{{ slotProps.data.name }}</div>
-                                <div class="mt-1 text-muted-color text-sm leading-5">{{ slotProps.data.categories.join(', ') }}</div>
+                                <div class="font-medium text-color leading-6 line-clamp-1">{{ slotProps.data.name }}
+                                </div>
+                                <div class="mt-1 text-muted-color text-sm leading-5">{{
+                                    slotProps.data.categories.join(', ') }}</div>
                             </div>
-                            <Button v-if="slotProps.data.bookmarked" icon="pi pi-bookmark-fill" severity="contrast" text rounded />
+                            <Button v-if="slotProps.data.bookmarked" icon="pi pi-bookmark-fill" severity="contrast" text
+                                rounded />
                         </div>
                     </div>
                 </template>
@@ -87,7 +88,8 @@
                 <div v-for="(movie, index) of popularMovies" :key="index" class="cursor-pointer">
                     <div class="relative aspect-[259/174.5] rounded-lg overflow-hidden">
                         <img class="w-full h-full object-cover" :src="movie.image" alt="Popular Movie Cover" />
-                        <div class="absolute z-10 top-2 right-2 px-2 py-1 text-sm font-medium leading-tight bg-surface-0 dark:bg-surface-950 border border-surface rounded-md">
+                        <div
+                            class="absolute z-10 top-2 right-2 px-2 py-1 text-sm font-medium leading-tight bg-surface-0 dark:bg-surface-950 border border-surface rounded-md">
                             {{ movie.point }}
                         </div>
                     </div>
@@ -105,17 +107,14 @@
 </template>
 
 <script>
-import Button from '@/components/lib/button/Button.vue';
-import IconField from '@/components/lib/iconfield/IconField.vue';
-import InputIcon from '@/components/lib/inputicon/InputIcon.vue';
-import InputText from '@/components/lib/inputtext/InputText.vue';
-import SelectButton from '@/components/lib/selectbutton/SelectButton.vue';
+
 
 export default {
     name: 'Movies',
     redrawListener: null,
     data() {
         return {
+            search: '',
             page: 0,
             value: 'Home',
             options: ['Home', 'Movies', 'TV Shows', 'Recently Added', 'My List'],
@@ -163,11 +162,6 @@ export default {
     },
     methods: {},
     components: {
-        IconField,
-        InputIcon,
-        InputText,
-        Button,
-        SelectButton
     }
 };
 </script>
