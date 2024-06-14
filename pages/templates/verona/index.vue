@@ -33,6 +33,9 @@
                     </defs>
                 </svg>
             </template>
+            <template #pattern>
+                <img class="select-none absolute z-[6] opacity-90 w-[110rem] h-auto bottom-80 left-0 md:-bottom-8 md:-left-4" src="https://primefaces.org/cdn/primevue/images/templates/verona/verona-hero-pattern.png" alt="Template Hero Pattern" />
+            </template>
         </TemplateHero>
         <VeronaSeparator />
         <TemplateLicense :license="license" />

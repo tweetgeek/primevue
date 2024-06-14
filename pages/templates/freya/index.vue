@@ -23,6 +23,13 @@
                     />
                 </svg>
             </template>
+            <template #pattern>
+                <img
+                    class="select-none absolute z-[6] w-[58rem] md:w-[50rem] h-auto top-12 md:top-32 -left-24 md:-left-12 opacity-75"
+                    src="https://primefaces.org/cdn/primevue/images/templates/freya/freya-hero-pattern.png"
+                    alt="Template Hero Pattern"
+                />
+            </template>
         </TemplateHero>
         <FreyaSeparator />
         <TemplateLicense :license="license" />

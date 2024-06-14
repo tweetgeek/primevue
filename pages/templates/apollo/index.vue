@@ -23,6 +23,9 @@
                     />
                 </svg>
             </template>
+            <template #pattern>
+                <img class="select-none absolute md:bottom-0 bottom-80 left-0 z-[6] md:w-[95rem] h-auto w-[90rem] opacity-60" src="https://primefaces.org/cdn/primevue/images/templates/apollo/apollo-hero-pattern.png" alt="Template Hero Pattern" />
+            </template>
         </TemplateHero>
         <ApolloSeparator />
         <div class="hidden">

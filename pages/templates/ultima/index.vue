@@ -27,6 +27,13 @@
                     </defs>
                 </svg>
             </template>
+            <template #pattern>
+                <img
+                    class="select-none absolute z-[6] opacity-75 w-[80rem] h-auto bottom-8 -left-64 md:-bottom-[26rem] md:-left-[22rem]"
+                    src="https://primefaces.org/cdn/primevue/images/templates/ultima/ultima-hero-pattern.png"
+                    alt="Template Hero Pattern"
+                />
+            </template>
         </TemplateHero>
         <UltimaSeparator />
         <div class="hidden">

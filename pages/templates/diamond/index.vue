@@ -20,6 +20,9 @@
                     </defs>
                 </svg>
             </template>
+            <template #pattern>
+                <img class="select-none absolute z-[6] w-[62rem] h-[44rem] -top-8 -left-36 md:-left-12" src="https://primefaces.org/cdn/primevue/images/templates/diamond/diamond-hero-pattern.png" alt="Template Hero Pattern" />
+            </template>
         </TemplateHero>
         <DiamondSeparator />
         <TemplateLicense :license="license" />
