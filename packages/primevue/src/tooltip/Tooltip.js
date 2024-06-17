@@ -455,7 +455,7 @@ const Tooltip = BaseTooltip.extend('tooltip', {
             // arg
             if (options.arg && typeof options.arg === 'object') {
                 return Object.entries(options.arg).reduce((acc, [key, val]) => {
-                    if (key === 'event' || key === 'position') acc[val] = true;
+                    if (key === 'event' || key === 'position' || key === 'focus') acc[val] = true;
 
                     return acc;
                 }, {});
